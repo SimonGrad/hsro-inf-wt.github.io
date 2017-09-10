@@ -1,0 +1,17 @@
+# Site settings
+title: "Webtechnologien (WT)"
+email: korbinian.riedhammer@fh-rosenheim.de
+description: "Materialien zum FWPM Webtechnologien"
+baseurl: ""
+url: "http://sikoried.github.io/wt"
+github_username:  sikoried
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
