@@ -9,7 +9,7 @@ Kommunikation vorzugsweise über die [Mattermost Gruppe](https://inf-mattermost.
 **Tutor**: Philip Waritschlager
 
 **Wichtige Termine:**
-- 1.11.2017 Verbindliche Meldung der Teams per Email
+- 9.11.2017 Verbindliche Meldung der Teams per Email
 - 7.12.2017 Schriftliche Prüfung (60 Min.)
 - 21.12.2017 Zwischenbesprechung der Teams mit dem Dozenten (je ca. 10 Min.)
 - 25.1.2018 Projektvorstellung der Teams
