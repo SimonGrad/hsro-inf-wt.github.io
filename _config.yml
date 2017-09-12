@@ -4,7 +4,7 @@ description: "Materialien zum FWPM Webtechnologien"
 baseurl: ""
 url: "https://hsro-inf-wt.github.io"
 exclude: ["LICENSE", "Remarks.md"]
-github_username:  sikoried
+github_username: ["sikoried", "phil294"]
 
 # Build settings
 markdown: kramdown
