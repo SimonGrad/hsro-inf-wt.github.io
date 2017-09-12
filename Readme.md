@@ -52,25 +52,25 @@ Wir greifen mit JavaScript auf das HTML *document object model* (DOM) zu, um ein
 
 --- [Vorlesungsmaterialien](05-vl-js-pt2/), [Übungsaugaben](05-uebung-js-pt2/)
 
-## 7. HTTP, Requests und Responses (16.11.2017)
+## 6. HTTP, Requests und Responses (16.11.2017)
 Das *hypertext transport protocol* (HTTP, v1.1) ist die Grundlage der Kommunikation mit Webservern.
 Wir unterscheiden hierbei Client- und Serverseite: Ersterer schickt die *requests*, letzterer antwortet mit *responses*.
 
 --- [Vorlesungsmaterialien](06-vl-http/), [Übungsaugaben](06-uebung-http/)
 
-## 8. Node.js und Datenbanken (23.11.2017)
+## 7. Node.js und Datenbanken (23.11.2017)
 Ausgestattet mit den Grundlagen aus den Einheiten 1.-6. steigen wir in die Serverentwicklung mit Node.js ein, und binden No/SQL Datenbanken ein, welche für Geschäftsanwendungen i.d.R. unabkömmlich sind.
 
 --- [Vorlesungsmaterialien](07-vl-node/), [Übungsaugaben](07-uebung-node/)
 	
-## 9. Modulare (Frontend) Entwicklung: NPM, RequireJS und Webpack (30.11.2017)
+## 8. Modulare (Frontend) Entwicklung: NPM, RequireJS und Webpack (30.11.2017)
 Nachdem wir Node auf Serverseite kennen gelernt haben, nutzen wir nun den *node package manager* (NPM) in verbindung mit RequireJS bzw. Webpack um Fremdbibliotheken in unsere Applikationen einzubinden.
 
 --- [Vorlesungsmaterialien](08-vl-requirejs/), [Übungsaugaben](08-uebung-requirejs/)
 
 > Am 7.12. findet in der Vorlesung die schriftliche Prüfung (SP) statt, in den Übungen werden die Projekte vorgestellt (Wireframes, Abläufe, Konzepte).
 
-## 10. Vue.js (14.12.2017)
+## 9. Vue.js (14.12.2017)
 Wir lernen das *model-view-controller* (MVC) Konzept am Beispiel des Vue.js (v2) Framework kennen.
 Anhand einiger Beispiele werden grundlegende Konzepte einer dynamischen Webapp erarbeitet (dynamische Inhalte, Benutzerinteraktion).
 
@@ -79,12 +79,12 @@ Anhand einiger Beispiele werden grundlegende Konzepte einer dynamischen Webapp e
 > Am 21.12. findet die Zwischenbesprechung der Gruppen mit dem Dozenten statt (ca. 10 Minuten pro Team).
 In der Übung wird vom Tutor Projektassistenz angeboten.
 
-## 11. Fortgeschrittene Techniken der Webentwicklung (11.1.2018)
+## 10. Fortgeschrittene Techniken der Webentwicklung (11.1.2018)
 Wir behandeln *cross-origin resource sharing* (CORS) und damit behaftete Probleme bei der Erstellung von Requests, Sicherheit und Authentifizierung für Webapplikationen, sowie persistente Verbindungen zum Webserver (Websockets) für Pushnachrichten.
 
 --- [Vorlesungsmaterialien](10-vl-fortg/), Übungen: Projektassistenz
 
-## 12. Ausblick (18.1.2018)
+## 11. Ausblick (18.1.2018)
 Statische Seitengenerierung mit Jekyll, Scaffolding mit Yeoman, Deployment mit Heroku
 
 --- [Vorlesungsmaterialien](11-vl-ausblick/), Übungen: Projektassistenz
