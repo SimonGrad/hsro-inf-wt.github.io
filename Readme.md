@@ -1,10 +1,10 @@
-Webtechnologien (WT)
---------------------
+# Webtechnologien (WT)
+
 
 _Elective for CS [majors](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-bachelor/) and [minors](https://www.fh-rosenheim.de/technik/informatik-mathematik/wirtschaftsinformatik-bachelor/) at the [University of Applied Sciences Rosenheim](https://www.fh-rosenheim.de). --- Fachwissenschaftliches Wahlpflichtmodul in den Bachelorstudiengängen [Informatik](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-bachelor/) und [Wirtschaftsinformatik](https://www.fh-rosenheim.de/technik/informatik-mathematik/wirtschaftsinformatik-bachelor/) an der [Hochschule Rosenheim](www.fh-rosenheim.de)._
 
 
-# Class Schedule
+## Class Schedule
 
 **Lecture**: Thursdays at 8a
 
@@ -19,7 +19,7 @@ _Elective for CS [majors](https://www.fh-rosenheim.de/technik/informatik-mathema
 - Jan 25, final presentation of projects
 
 
-# Class and Credits (_Leistungsnachweis_)
+## Class and Credits (_Leistungsnachweis_)
 Lectures: We'll discuss current web technologies to build state-of-the-art web sites or web applications.
 
 Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipedia.org/wiki/Bring_your_own_device) strongly recommended!
@@ -27,7 +27,7 @@ Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipe
 Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 
-# Syllabus
+## Syllabus
 - **Introduction (Oct 5, [slides](01s-intro/), [lecture notes](01ln-intro/), [assignments](01a-tools/))**
 	
 	With a few examples we dig right into the necessary tools for a web developer: git, editor, developer tools, and if course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the pages of the [W3C](https://www.w3.org/).
