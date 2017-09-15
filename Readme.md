@@ -87,4 +87,4 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 - **Final project presentations (Jan 25, all day)**
 
 
-_Subscribe to [https://github.com/hsro-inf-wt](https://github.com/hsro-inf-wt) repository to follow updates._
+_Subscribe to [https://github.com/hsro-inf-wt/hsro-inf-wt.github.io](https://github.com/hsro-inf-wt) repository to follow updates._
