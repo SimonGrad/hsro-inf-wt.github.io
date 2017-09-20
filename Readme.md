@@ -18,8 +18,14 @@ _Elective for CS [majors](https://www.fh-rosenheim.de/technik/informatik-mathema
 - Dec 21, team meetings with instructor (individually, ca. 10 min per team)
 - Jan 25, final presentation of projects
 
+_Note: Materials will be in English, the lectures/tutorials will be taught in German; the mid-term written exam will be bilingual (use the language of your choice)._
 
-## Class and Credits (_Leistungsnachweis_)
+
+## Recommended Textbooks
+- Verou: [CSS Secrets](https://www.amazon.de/CSS-Secrets-Solutions-Everyday-Problems/dp/1449372635)
+
+
+## Class and Credits _(Leistungsnachweis)_
 Lectures: We'll discuss current web technologies to build state-of-the-art web sites or web applications.
 
 Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipedia.org/wiki/Bring_your_own_device) strongly recommended!
