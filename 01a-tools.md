@@ -5,7 +5,7 @@ permalink: /01a-tools/
 
 # Assignment 1
 
-Main objective of this assignment is to get (well) familiar with the tools you'll be using the most: [git](https://git-scm.com), text editor (_e.g._ [Sublime](https://www.sublimetext.com/)), a rapid prototyping tool (e.g. [jsfiddle](https://jsfiddle.net/)), and the developer tools important browsers.
+Main objective of this assignment is to get (well) familiar with the tools you'll be using the most: [git](https://git-scm.com), text editor (_e.g._ [Sublime](https://www.sublimetext.com/)), a rapid prototyping tool (e.g. [jsfiddle](https://jsfiddle.net/)), and the developer tools of important browsers.
 
 
 # Git
@@ -19,7 +19,7 @@ Unless you're using an IDE (such as [Webstorm](https://www.jetbrains.com/webstor
 There are [plenty](http://brackets.io/) [of](https://www.sublimetext.com/3) [reasonable](https://atom.io/) [choices](https://notepad-plus-plus.org/), but only [one to rule them all](http://www.vim.org/) (well, [maybe two](https://www.gnu.org/software/emacs/)).
 For your peace of mind, it should support at least directory browsing and syntax highlighting for HTML, CSS and JavaScript.
 
-You may want to get familiar with your favorite terminal ([bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) is recommended); use [Cygwin](https://www.cygwin.com/) or a [VirtualBox VM with Linux](https://www.virtualbox.org/wiki/Downloads) on Windows, or [Terminal.app](https://en.wikipedia.org/wiki/Terminal_(macOS)) or [iTerm2](https://www.iterm2.com/) on OSX.
+You may want to get familiar with your favorite terminal ([bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) is recommended); use [Windows Subsystem for Linux](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide) or a [VirtualBox VM with Linux](https://www.virtualbox.org/wiki/Downloads) on Windows, or [Terminal.app](https://en.wikipedia.org/wiki/Terminal_(macOS)) or [iTerm2](https://www.iterm2.com/) on OSX.
 
 
 # Developer Tools
@@ -37,9 +37,9 @@ Install all browsers (as far as supported by your OS), and get familiar with the
 # Rapid Prototyping
 
 Often enough, you'll discover that the solutions to your problems are a combination of HTML (data schema), CSS (layout and design) and JavaScript (actions).
-Since it's a bit of a pain to go through setting up all three files, linking and serving them, just to demonstrate a problem/solution, bright people have come up with platforms such as https://jsfiddle.net.
+Since it's a bit of a pain to go through setting up all three files, linking and serving them, just to demonstrate a problem/solution, bright people have come up with platforms such as <https://jsfiddle.net>.
 
-Solve this little riddle: https://jsfiddle.net/sikoried/6bouqrbp/ (Hit _RUN_ atop once you made changes!).
+Solve this little riddle: <https://jsfiddle.net/sikoried/6bouqrbp/>. (Hit _RUN_ atop once you made changes!).
 
 
 # A simple web server (Node.js)
@@ -48,8 +48,8 @@ In this exercise, you will create your first (static and very basic) website.
 
 1. Install node.
 	- Mac: Use [homebrew](https://brew.sh/), get it via `brew install node`
-	- Windows: ~~You should not use Windows.~~ Try using [Windows Subsystem for Linux](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide) (which is effectively Ubuntu Linux). Or see http://blog.teamtreehouse.com/install-node-js-npm-windows
-	- Linux: See https://nodejs.org/en/download/package-manager/
+	- Windows: ~~You should not use Windows.~~ Try using [Windows Subsystem for Linux](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide) (which is effectively Ubuntu Linux). Or see <http://blog.teamtreehouse.com/install-node-js-npm-windows>
+	- Linux: See <https://nodejs.org/en/download/package-manager/>
 	- [Docker](https://www.docker.com/): (yeah!) https://github.com/nodejs/docker-node
 2. Create a new directory (eg. `hello-world`), and change into it.
 3. Install `http-server` using the node packaga manager `npm`, and run
@@ -77,5 +77,6 @@ In this exercise, you will create your first (static and very basic) website.
 	</body>
 	</html>
 	```
+	...and refresh your browser.
 5. Use the inspector to change the text, color and font size.
 
