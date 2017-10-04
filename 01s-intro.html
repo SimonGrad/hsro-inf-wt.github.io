@@ -1,53 +1,135 @@
 ---
 layout: presentation
 title: Introduction
-permalink: /s01-intro/
+permalink: /01s-intro/
 ---
 
-# Introduction
+# Webtechnologien 2017
+
+Korbinian Riedhammer
 
 ---
 
-# Agenda
+# Are you in the right class?
 
-1. Introduction
-2. Deep-dive
-3. ...
+## Plain and simple: This class is overbooked.
 
-[NOTE]: Note that you need active internet connection to access remark.js script file
-
-https://blog.codinghorror.com/the-principle-of-least-power/
+- Have you passed Programmieren 1 and 2?<br>
+	(read: _"I know at least a little bit about programming._)
+- Did you opt for the _software engineering_ focus<br>
+	(read: _"I genuinely enjoy programming."_)
+- Are you ok with English?<br>
+	(read: _"I understand most of the web world is in English."_)
+- Are you resourceful?<br>
+	(read: _"I know how to work Google/SO/MDN to find an answer."_)
+- Are you committed?<br>
+	(read: _"I absolutely want to learn about this stuff"_)
 
 ---
 
 # Introduction
 
 - class: Thursdays at 8a
+- materials: https://hsro-inf-wt.github.io (English)
 - tutorials:
 	- Thursdays at 11.45a/1.45p
 	- Tutor: Philip Waritschlager
+- communication: via [Mattermost](https://inf-mattermost.fh-rosenheim.de/wt-2017/channels/town-square) ([invite](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=cwd8jpz4ijfxdgg6i6q45d1asa)).
+- important dates (read: _presence absolutely mandatory_)
+	+ Nov 9, team registration
+	+ Dec 7, written exam (60 Min.) *and* team presentations (kick-off)
+	+ Dec 21, team meetings with me (individually, ca. 10 min per team)
+	+ Jan 25, final presentation of projects
 
-- NO POINT if you can't hack
+---
 
 # Credits (Leistungsnachweis)
 
-- written mid-term (Dec 7)
-- project (team of 3)
+## 50%: written mid-term (Dec 7)
+- 60 minutes written exam
+- covers basics of HTML/CSS/JavaScript
+
+---
+
+# Credits (Leistungsnachweis) cont'd
+## 50%: project (teams of 3)
+- must have user stories and wireframes/sketches
+- must use advanced toolkit (eg. angular, vue, react)
+- must have frontend and backend
+- must connect to database _or_ other form of permanent storage
+- must have advanced authentication (eg. OAuth2)
+- must pass W3 validators; should produce no warnings
+- must be deployed via docker containers _or_ heroku _or_ as VM
+- kudos: serves actual purpose, looks good, mobile-friendly
+
+---
+
+# Intermission
+
+## _this is your chance to opt out_
+
+---
+
+# Before we get started
+
+## Why do I **not** believe in PHP/ZEND?
+
+> _Caution: This is my professional opinion, not necessarily facts._
+
+- PHP is interpreted; if you put (non-cachable) PHP into your web sites, they need to be processed before serving.
+- PHP is (sort of) hard to scale; static pages are trivial (CDN)
+- load/scaling problems immediately result in rendering delays
+- Bugtracking can be pretty hard/painful
+- Automated testing requires to spin up a local php interpreter
+
+---
+
+# Recommended textbooks
+
+## None, actually.
+
+Web development happens on the internet, not your reading couch.
+
+Problem at hand? Google it and you'll find a tutorial.
+
+???
+
+Google it and you'll find a post explaining ist.
+
+Learning by doing at its best.
 
 ---
 
 # Basic Overview
 
+## We will cover...
+- HTML/5
+- CSS/3
+- JavaScript (ES6)
+- Node.js for backend
+- Vue.js for frontend
+- some advanced topics:
+	+ scaffolding and static page generation
+	+ security and authorization
+	+ deployment with heroku
+
 ---
 
 # Tooling
 
-- Git
-- Bash
-- Sublime
-- Browsers
-- Google/SO
+- git
+- shell of your choice
+- editor of your choice
+- curl or similar (eg. Postman)
+- developer tools of your browsers (note the **s**)
+- https://jsfiddle.net
+- Your trusted web sources: [Google](https://www.google.com) - [SO](https://www.stackoverflow.com) - [MDN](https://developer.mozilla.com)
 
---- 
+---
 
 # Example: Facebook TTS
+
+Facebook has a (relatively) new feature: _how to pronounce your name_
+
+Let's ~~hack~~ play with it :-)
+
