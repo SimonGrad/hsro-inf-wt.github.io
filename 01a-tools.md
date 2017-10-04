@@ -10,7 +10,7 @@ Main objective of this assignment is to get (well) familiar with the tools you'l
 
 # Git
 
-If you haven't yet completed https://github.com/hsro-inf-prg3/01a-tools/#get-familiar-with-git, do so now.
+If you haven't yet completed <https://github.com/hsro-inf-prg3/01a-tools/#get-familiar-with-git>, do so now.
 
 
 # Editor
