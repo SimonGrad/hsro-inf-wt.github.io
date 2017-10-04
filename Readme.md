@@ -34,7 +34,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 
 ## Syllabus
-- **Introduction (Oct 5, [slides](01s-intro/), [lecture notes](01ln-intro/), [assignments](01a-tools/))**
+- **Introduction (Oct 5, [slides](01s-intro/), [assignments](/01a-tools/))**
 	
 	With a few examples we dig right into the necessary tools for a web developer: git, editor, developer tools, and if course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the pages of the [W3C](https://www.w3.org/).
 
@@ -60,6 +60,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 - **HTTP, requests and responses (Nov 16)**
 
 	Learn about the [*hypertext transport protocol* (v1.1)](https://tools.ietf.org/html/rfc7231) which forms the foundations of communcation between web agents (browsers) and servers.
+	We'll briefly talk about HTTPS and certificates.
 
 - **Node.js and databases (Nov 23)**
 
