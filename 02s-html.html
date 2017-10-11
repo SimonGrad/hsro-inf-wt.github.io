@@ -1,0 +1,240 @@
+---
+layout: presentationB
+title: HTML
+permalink: /02s-html/
+---
+
+# Webtechnologien 2017
+
+## HTML5
+
+Korbinian Riedhammer
+
+---
+
+# What is HTML (5)
+
+- first surfaced as informal TR at CERN
+- first official document 1993 <https://tools.ietf.org/html/draft-ietf-iiir-html-00> (Tim Berners-Lee, Daniel Connolly)
+- (Rosenheim: 1997! https://web.archive.org/web/*/fh-rosenheim.de)
+- a technical report by the W3C <https://www.w3.org/TR/html5/>
+- a _markup_ (descriptive) language -- no control flow, just data
+- W3C provides a validator: <https://validator.w3.org/>
+- MDN has excellent reference: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element>
+
+---
+
+# General Structure
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title of the document</title>
+</head>
+
+<body>
+    Content of the document......
+</body>
+
+</html>
+```
+
+- `<!DOCTYPE html>` defines the [document type](https://www.w3.org/TR/html5/syntax.html#the-doctype)
+- `head` with `title` are required; the charset information is recommended
+- `body` contains the actual content
+- all tags must be (properly) closed!
+
+???
+
+Bring to validator, modify to show errors
+
+---
+
+# The `<html>` Element
+
+- <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html>
+- must contain `head` element
+- must contain `body` element (as second child)
+
+---
+
+# The `<head>` Element
+
+- <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head>
+- must have `title` element (if regular document)
+- may have other [metadata tags](https://www.w3.org/TR/html5/document-metadata.html#the-meta-element)
+
+---
+
+# The `<body>` Element
+
+- <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body>
+- this is where the content goes!
+- [flow content](https://www.w3.org/TR/html5/dom.html#flow-content-1)
+---
+
+# Overview: Flow Content
+
+From <https://www.w3.org/TR/html5/dom.html>
+
+<object data="/assets/content-venn.svg" width="100%"><img alt="" height="288" src="/assets/content-venn.png" width="512"></object>
+
+---
+
+# Select Block Elements
+
+- inside `body`, can contain other block or inline elements
+- linebreaks by default (stacked vertically)
+- examples
+    + `h1..6` (headings)
+    + `p` (paragraph)
+    + `ol`/`ul` (ordered/unordered list)
+    + `div` (division, section, container)
+    + `form` (container for input data)
+
+---
+
+## Select Inline Elements
+
+- inside `body`, can contain other inline elements
+- no linebreaks by default (left-to-right)
+- examples
+    + `a` (anchor, hyperlink)
+    + `img` (image)
+    + `span`
+    + `em` (emphasize)
+    + `strong` (bold)
+    + `button`
+
+---
+
+# Elements new since HTML5
+- semantic block elements: `header`, `footer`, `article`, `section`
+- form elements attributes: `number`, `date`, `time`, `calendar`, `range`.
+- graphic elements: `svg` and `canvas`.
+- multimedia elements: `audio` and `video`.
+
+---
+
+# Selected Attributes
+
+- elements can have attributes, denoted by `key="<value>"` in HTML
+- all elements: 
+    + `id`: unique identifier
+    + `class`: CSS class(es) of this element
+    + `style`: inline CSS for this element (overrides CSS)
+- certain content elements (eg. `script`, `audio`, `img`, ...):
+    - `src`: URI for to load data from
+- number of deprecated attributes (set via CSS instead)
+    + `width`/`height`
+    + `background`/`bgcolor`
+    + `align`
+
+---
+
+# A Closer Look: `<a>`
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a>
+
+- an "anchor" to your document, links to other locations, hyperlinks, files, ...
+- use `<a href="{{path}}">link name</a>` to reference to a certain path
+    + `/this/is/absolute`: a leading slash indicates absolute location
+    + `this/is/relative`: no leading slash is relative
+    + `http://...`: (typically) external link
+    + `#...` "anchor" link; use together with `<h1 id="name">` to navigate the current page
+- use `href=""` and an on-click listener to make AJAX requests that wont trigger page load
+
+---
+
+# A Closer Look: `<input>`
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input>
+
+- Use it to gather information from the user (names, CC info, ...)
+- should set `type` attribute; choose from `text`, `password`, `checkbox`, `file` and many more
+- should set `id` (w.r.t. DOM) and `name` (w.r.t. `<form>`) attributes
+- can set `value` or `text`
+- often used in conjunction with forms or AJAX requests
+
+<div onkeypress="">
+<span>Text input:</span> <input type="text"><br>
+<span>Password input:</span> <input type="password"><br>
+<span>File input:</span> <input type="file">
+<span>Checkbox input:</span> <input type="checkbox">
+</div>
+
+---
+
+# A Closer Look: `<form>`
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form>
+
+- this is not a "real" element, more of a section/grouping
+- should set `action` and `method` attributes (used to transmit values; see chapter on HTTP and backend)
+- should set `autocomplete` attribute, if desired
+- was essential to "old style" web programming, since it (typically) redirects the user to a new page
+- still used to indicate grouping of input elements, mostly for accessibility
+
+---
+
+# A Closer Look: `<table>`
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table>
+
+- traditionally used to create layouts (read why this is a [terrible idea](http://daviddickball.uk/2011/04/why-you-shouldnt-use-tables-for-layout-ever/))
+- never (ever) use tables for layouts 
+- if you use tables for layouts, I will fail you on the exam
+- use tables for what they're for: tabular data display
+- tables are hard to style; use [bootstrap](http://getbootstrap.com/docs/4.0/content/tables/)
+- if you *must* use table-like layouts: use `div` and with `display: table`
+
+<table style="width: 100%; border: 1px solid black">
+    <thead>
+        <tr>
+            <th style="width: 45%">Family name</th>
+            <th>Given name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Parker</td>
+            <td>Peter</td>
+        </tr>
+        <tr>
+            <td>Kent</td>
+            <td>Clark</td>
+        </tr>
+        <tr>
+            <td>Lane</td>
+            <td>Louis</td>
+        </tr>
+    </tbody>
+</table>
+
+---
+
+# A Closer Look: `<iframe>`
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe>
+
+- popular for embedding other content in your page
+- CAUTION: you can do serious harm with this...
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3fTFB5Tlrhw" frameborder="0" allowfullscreen></iframe>
+
+---
+
+# Accessibility
+
+<https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML>
+
+- [Don't use tables for layouts, use `<article>` etc.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML#Page_layouts)
+- Use proper UI controls (eg. `<button>` instead of `<div onclick="...">`)
+- Add `<label>`s to your `<input>`s ([example](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML#Meaningful_text_labels))
+- Use `alt` property on `img`
+
+Good test: Use the screenreader to have your page read out to you!
+
+

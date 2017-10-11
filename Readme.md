@@ -38,7 +38,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 	
 	With a few examples we dig right into the necessary tools for a web developer: git, editor, developer tools, and if course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the pages of the [W3C](https://www.w3.org/).
 
-- **HTML (Oct 12)**
+- **HTML (Oct 12, [slides](02s-html/), [lecture notes](02ln-html/))**
 
 	The *hypertext markup language* is the backbone of all web sites, and its technically a descriptive (not a programming) language.
 	We'll use it to encode the _information_ that we want to present, but (ideally) not the looks.
