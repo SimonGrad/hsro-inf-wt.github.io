@@ -14,17 +14,18 @@ Korbinian Riedhammer
 
 # What is HTML (5)
 
+- _hyptertext markup language_
 - first surfaced as informal TR at CERN
 - first official document 1993 <https://tools.ietf.org/html/draft-ietf-iiir-html-00> (Tim Berners-Lee, Daniel Connolly)
 - (Rosenheim: 1997! https://web.archive.org/web/*/fh-rosenheim.de)
-- a technical report by the W3C <https://www.w3.org/TR/html5/>
+- a technical report by the World Wide Web Consortium (W3C) <https://www.w3.org/TR/html5/>
 - a _markup_ (descriptive) language -- no control flow, just data
 - W3C provides a validator: <https://validator.w3.org/>
 - MDN has excellent reference: <https://developer.mozilla.org/en-US/docs/Web/HTML/Element>
 
 ---
 
-# General Structure
+# General Structure of a HTML Document
 
 ```html
 <!DOCTYPE html>
@@ -33,7 +34,7 @@ Korbinian Riedhammer
     <meta charset="UTF-8">
     <title>Title of the document</title>
 </head>
-
+<!-- use this to place comments anywhere -->
 <body>
     Content of the document......
 </body>
@@ -45,10 +46,29 @@ Korbinian Riedhammer
 - `head` with `title` are required; the charset information is recommended
 - `body` contains the actual content
 - all tags must be (properly) closed!
-
+- comments (`<!-- ... -->`) may be multiline
 ???
 
 Bring to validator, modify to show errors
+
+---
+
+# Terminology
+
+- URI: universal resource identifier
+- URL: universal resource locator ("link", subset of URI)
+- MIME types (multipurpose internet mail extension) https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+
+---
+
+# One more thing...
+
+- HTML is a textbased markup language with [reserved characters](https://developer.mozilla.org/en-US/docs/Glossary/Entity#Reserved_characters):
+    + must encode using `&...;`
+    + `&`: `&amp;`
+    + `<`/`>`: `&lt;`/`&gt;`
+    + `"`: `&quot;`
+- use [this visual list](https://dev.w3.org/html5/html-author/charref) to find your special character encoding
 
 ---
 
@@ -144,7 +164,23 @@ From <https://www.w3.org/TR/html5/dom.html>
     + `this/is/relative`: no leading slash is relative
     + `http://...`: (typically) external link
     + `#...` "anchor" link; use together with `<h1 id="name">` to navigate the current page
+- use the `target` attribute to control _where_ the link opens: `_self`, `_blank` (new window), `_parent`, `_top`
 - use `href=""` and an on-click listener to make AJAX requests that wont trigger page load
+- set the `download` attribute to direct browsers to download the link instead
+
+---
+
+# A Closer Look: `<img>`
+
+<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img>
+
+- use `src` attribute to specify URI of image
+- should use `alt` attribute to set textual description
+- pro-tip: use `sizes` and `srcset` to specify multiple resolutions
+- most common formats: JPEG, PNG and GIF
+- use `width` and `height` attributes if necessary (CSS preferred)
+
+<div style="width:100%; text-align: center"><img src="/assets/giphy.gif" alt="looked so easy in class"></div>
 
 ---
 
@@ -164,6 +200,8 @@ From <https://www.w3.org/TR/html5/dom.html>
 <span>File input:</span> <input type="file">
 <span>Checkbox input:</span> <input type="checkbox">
 </div>
+
+- use the [`textarea`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) field for multiline text
 
 ---
 
@@ -186,7 +224,8 @@ From <https://www.w3.org/TR/html5/dom.html>
 - traditionally used to create layouts (read why this is a [terrible idea](http://daviddickball.uk/2011/04/why-you-shouldnt-use-tables-for-layout-ever/))
 - never (ever) use tables for layouts 
 - if you use tables for layouts, I will fail you on the exam
-- use tables for what they're for: tabular data display
+- contains `tr` (_row_) elements, which contain `td` (_delimiter_) elements
+- may use `thead` and `tbody`
 - tables are hard to style; use [bootstrap](http://getbootstrap.com/docs/4.0/content/tables/)
 - if you *must* use table-like layouts: use `div` and with `display: table`
 
@@ -215,6 +254,23 @@ From <https://www.w3.org/TR/html5/dom.html>
 
 ---
 
+# A Closer look: `<audio>` and `<video>`
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video
+
+- preferred (and safe) way to embed media
+- check format compatibility: http://caniuse.com/
+- useful attributes
+    + `autoplay`
+    + `controls`: show browser/OS default controls
+    + `preload`: `none`, `metadata`, `auto`
+    + `type`: MIME type, eg. `audio/mp3`
+- use either `src` attribute, or nested `source` elements
+
+---
+
 # A Closer Look: `<iframe>`
 
 <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe>
@@ -237,4 +293,11 @@ From <https://www.w3.org/TR/html5/dom.html>
 
 Good test: Use the screenreader to have your page read out to you!
 
+---
 
+# More on Attributes
+
+- there are a number of attributes that work on (almost) all HTML elements
+- `onXXXXXX`: javascript callback handlers
+- `contenteditable`: should this field be editable in browser
+- although some elements allow for styling attributes (eg. `background`, `width`), these should in most cases be set via CSS
