@@ -26,6 +26,7 @@ http://davidshariff.com/quiz/
 6. 11/9: JS/2: Dynamischer Inhalt
 	- DOM und Events
 	- jQuery
+	- d3?
 6. 11/16: Das HTTP, Requests und Responses
 	- HTTP/1.1
 	- Node.js Server

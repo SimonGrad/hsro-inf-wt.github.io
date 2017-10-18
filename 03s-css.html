@@ -1,0 +1,384 @@
+---
+layout: presentationB
+title: CSS3
+permalink: /03s-css/
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Webtechnologien 2017
+
+## CSS3
+
+Korbinian Riedhammer
+
+<div style="width: 100%; text-align: center;">
+<img src="/assets/HTML5_Styling_512.png" style="height: 300px">
+</div>
+
+---
+
+![with css](/assets/02-with-css.png)
+
+
+
+---
+
+# Without CSS
+![no css](/assets/02-no-css.png)
+
+---
+
+# Motivation
+
+Separate the **content** (information, HTML) from the **looks** (styles, CSS).
+
+Responsive design: different **styles** for different **media** (`@media` queries).
+
+---
+
+# What is CSS?
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/Reference>
+
+Styling information that can be tied to HTML elements using _selectors_.
+
+```css
+SELECTOR {
+    ATTRIBUTE: VALUE;
+}
+```
+
+Here is a very short stylesheet, that will add padding to the whole `body`
+```
+body {
+    padding: 15px;  /* will result in sort of a border */
+}
+```
+
+- use `/* ... */` for comments (can be multiline; no `//`)
+- use `;` after each `attribute: value`
+- validate your CSS: <https://jigsaw.w3.org/css-validator/>
+
+---
+
+# Selectors (1)
+
+You can use the `id` of an HTML element.
+
+```html
+<p id="intro">Introduction</p>
+```
+```css
+#intro {
+    background: yellow;
+}
+```
+
+---
+
+# Selectors (2)
+
+You can use the _class_ of an HTML element.
+
+```html
+<p class="intro">Introduction</p>
+```
+```css
+.intro {
+    background yellow;
+}
+```
+
+- this is the predominant case
+- use preceding `.` in stylesheet, but not on `class` attribute in html
+- an element can have multiple classes, e.g. `<p class="intro first"></p>`
+
+
+---
+
+# Selectors (3)
+
+You can use an HTML element.
+
+```html
+<p>Introduction</p>
+```
+```css
+p { 
+    background: yellow
+}
+```
+Use this for general styling, since it affects all instances of said element.
+
+---
+
+# Advanced Selectors
+
+You can select multiple elements, e.g. `p, span`
+
+You can select hiararchically (_combinators_), e.g.
+- `div span` selects any `span` that is within a `div`
+- `div > span` selects `span`s which are direct children of `div`
+
+You can select based on position, e.g.
+- `div + p` selects `p` that follow a `div`
+- `div ~ p` selects `p` that are preceded by `div`
+
+You can select by attribute, e.g. `[href]`
+
+...and many more: <https://www.w3schools.com/cssref/css_selectors.asp>
+
+---
+
+# Adding Style to Your Documents
+
+External stylesheet, referenced using `link` element in `head` -- **recommended!**
+```html
+<head>
+    <link rel="stylesheet" href="path/to/styles.css" type="text/css">
+</head>
+```
+
+Inline stylesheet, using `style` element in `head`
+```html
+<head>
+    <style>
+    p { 
+        background: black; 
+    }
+    </style>
+</head>
+```
+
+`style` attribute on any HTML element<br>
+```html
+<p style="color: yellow">Hard to read</p><!-- note missing tag and {} -->
+```
+
+---
+
+# CSS is powerful
+
+Text rendering, using font, size, shape and color.
+
+```html
+<span>Example</span>
+```
+```css
+span {
+    font: 12pt sans-serif;
+    text-decoration: underline;
+    color: green;
+}
+```
+
+<span style="font: 24pt sans-serif;
+    text-decoration: underline;
+    color: green;">Hello, world!</span>
+
+---
+
+# CSS is powerful
+
+Layout, using margins, padding and positioning.
+
+```html
+<p>Hello, world!</p>
+```
+```css
+p {
+    margin: 15px;
+    padding-left: 30px;
+    position: absolute;
+    background: silver;
+}
+```
+
+<p style="margin: 15px;
+    padding-left: 30px;
+    position: absolute;
+    background: silver;">Hello, world!</p>
+
+---
+
+# CSS is powerful
+
+Design, using background, colors, borders.
+
+```html
+<article></article>
+```
+```css
+article {
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    boder: 1px solid black;
+}
+```
+
+<div style="width: 100px;
+    height: 100px;
+    background: yellow;
+    boder: 1px solid black;"></div>
+
+---
+
+# CSS is powerful
+
+Behavior, using transitions, animations and pesudo-states.
+
+```html
+<div class="animated"></div>
+```
+```css
+.animated {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    background-color: red;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+@keyframes example {
+    0%   {background-color: red; left:0px;}
+    50%  {background-color: yellow; left:200px;}
+    100% {background-color: red; left:0px;}
+}
+```
+
+<div class="animated">Hello, world!</div>
+
+---
+
+# Colors
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/color_value>
+
+Use a keyword (named color).
+```html
+<span style="background: green">green</span>
+```
+<span style="background: green">green</span>
+
+Mix custom color using `rgb(...)` and `rgba(...)`.
+```html
+<span style="background: rgb(255, 0, 153)">rgb(255, 0, 153)</span>
+```
+<span style="background: rgb(255, 0, 153)">rgb(255, 0, 153)</span>
+
+Mix custom color via hex value.
+```html
+<span style="background: #faa">#faa</span>
+```
+<span style="background: #faa">#faa</span>
+
+---
+
+# Units
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/length>
+
+Absolute or relative values.
+
+<span style="display: inline-block; margin: 5px; background: cyan; width: 70px"><tt>70px</tt></span>
+<span style="display: inline-block; margin: 5px; background: cyan; width: 30%"><tt>30%</tt></span>
+<span style="display: inline-block; margin: 5px; background: cyan; width: 25vw"><tt>25vw</tt></span>
+
+Most frequent units: `px`, `pt`, `em`, `vh`/`vw`
+
+---
+
+# Pseudo-Classes and Pseudo-Elements
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes>
+
+- keyword with leading `:`, e.g. `:first-child` or `:nth-child`.
+- matches _classes_ not explicitly annotated
+- use with lists, tables, hover, etc.
+- `:hover` can be used to make pure CSS popups; however not advised since dawn of mobile era
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements>
+
+- keyword with leading `::`, e.g. `::before` or `::after`
+- matches _elements_ not explicitly found in the HTML DOM
+
+
+---
+
+# Specificity
+
+The precedence is element < class < id < type.
+
+Use `!important` to force value.
+
+Details: <https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity>
+
+---
+
+# Looking Far Out Beyond
+
+### Flexbox
+
+`display: flex` makes previously complex layouts much simpler and mobile friendly; checkout this [holy grail layout](https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/).
+
+### Responsive Design
+
+Use [`@media` queries](https://developer.mozilla.org/en-US/docs/Web/CSS/@media) to determine the screen sizes and style content accordingly.
+
+
+### LESS, SASS and others
+
+Hand-writing plain CSS can be cumbersome; fear not, there's [higher level languages](https://css-tricks.com/sass-vs-less/) on top.
+
+
+---
+
+# Recommended Libraries
+
+## Bootstrap
+
+<http://bootstrapdocs.com/v3.2.0/docs/>
+
+Responsive design styles for every-day use, to make HTML look good without much work.
+
+## Fontawesome
+
+<http://fontawesome.io/>
+
+Use _fonts_ instead of _images_ for icons.
+
+---
+
+# Get inspired
+
+CSS requires a lot of patience and experience.
+
+If you're new to CSS, it's hard to tell what's possible and what not.
+
+Best way to learn CSS is by challenging yourself-- and getting inspired.
+
+- <https://tutorialzine.com/2014/07/20-impressive-css3-techniques-libraries-and-examples>
+- <http://fff.cmiscm.com/>
+- <http://www.bestcss.in/>
+- <https://www.awwwards.com/websites/css3/>
+
+---
+
+# Analyzing Layouts
+
+![devtools](/assets/03-css-devtools.png)

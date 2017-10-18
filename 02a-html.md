@@ -1,9 +1,9 @@
 ---
-title: Assignments 2
+title: Assignment 2
 permalink: /02a-html/
 ---
 
-# Assignments 2
+# Assignment 2: HTML
 
 ## Hone your HTML skills
 
