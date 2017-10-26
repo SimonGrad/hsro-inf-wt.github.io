@@ -47,9 +47,9 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 	Use *cascading stylesheets* to render your HTML into the looks you want.
 	
-- **JavaScript, pt. 1 (Oct 26)**
+- **JavaScript, pt. 1 (Oct 26, [slides](/04s-js-1/), [lecture notes](/04ln-js-1/), [assignments](/04a-js-1/))**
 
-	Learn about the syntax and characteristics of [JavaScript (ES6)](http://es6-features.org/).
+	Learn about the syntax and characteristics of [JavaScript (ES5)](http://es6-features.org/).
 
 > No class or tutorials on Nov 2 -- please use the time to work on your projects!
 
@@ -62,9 +62,9 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 	Learn about the [*hypertext transport protocol* (v1.1)](https://tools.ietf.org/html/rfc7231) which forms the foundations of communcation between web agents (browsers) and servers.
 	We'll briefly talk about HTTPS and certificates.
 
-- **Node.js and databases (Nov 23)**
+- **Node.js, Express.js and databases (Nov 23)**
 
-	Use your knowledge about JavaScript and HTTP to build a basic webserver with node.js that accesses a (no/SQL)* database.
+	Use your knowledge about JavaScript and HTTP to build a basic webserver with node that accesses a (no/SQL)* database.
 
 - **Modular (frontend) development (Nov 30)**
 

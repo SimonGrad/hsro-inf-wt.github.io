@@ -1,0 +1,11 @@
+@startuml
+class Meal {
+	+Meal(name: String, ingredients: String[])
+	+isVegan(): Boolean
+	+isVegetarian(): Boolean
+	+isGlutenFree(): Boolean
+	+hasPork(): Boolean
+	+hasChicken(): Boolean
+	+getPrice(): Number
+}
+@enduml

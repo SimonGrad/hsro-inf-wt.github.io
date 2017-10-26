@@ -1,0 +1,6 @@
+@startuml
+class Person {
+	+Person(name: String, year: Number)
+	+getAge(): Number
+}
+@enduml
