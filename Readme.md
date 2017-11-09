@@ -53,7 +53,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 > No class or tutorials on Nov 2 -- please use the time to work on your projects!
 
-- **JavaScript, pt. 2 (Nov 9)**
+- **JavaScript, pt. 2 (Nov 9, [slides](/05s-js-2/), [lecture notes](/05ln-js-2/), [assignments](/05a-js-2/))**
 
 	Use javascript to modify the *document object model* (DOM) to change content and style (layout) of web pages dynamically.
 	

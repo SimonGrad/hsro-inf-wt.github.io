@@ -1,0 +1,424 @@
+---
+layout: presentationA
+title: Javascript
+permalink: /05s-js-2/
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Webtechnologien 2017
+
+## Javascript, part two
+
+Korbinian Riedhammer
+
+---
+
+# Overview
+
+- Document Object Model (DOM)
+- Browser Object Model (BOM)
+- AJAX
+- jQuery
+
+---
+
+# An HTML Document is a Tree
+
+![DOM Example](/assets/dom-model.svg)
+
+.right[Illustration by [Birger Eriksson](https://commons.wikimedia.org/wiki/File:DOM-model.svg)]
+
+???
+
+Demonstrate DOM tree in dev console
+
+---
+
+# Document Object Model (DOM)
+
+<https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/>
+
+- Object model and programming interface for HTML via JavaScript
+- Global `document` object stores all _elements_ (tree)
+- For each element: all properties, methods (and event handlers)
+
+```html
+<html>
+<body>
+    <p id="demo">Some other text</p>
+</body>
+</html>
+```
+```javascript
+document;      // the complete document
+document.all;  // all elements
+document
+    .getElementById("demo")       // select <p> above...
+    .innerHTML = "Hello world!";  // ...change the text
+```
+
+---
+
+# Working with `document`
+
+`document`
+- `.getElementById(id)` returns specific element
+- `.getElementsByTagName(name)` returns all elements of a certain tag type (e.g. `div`)
+- `.getElementsByClassName(name)` returns all elements that carry a certain (CSS) class
+- `.createElement(name)`, create an element, e.g. `div`
+- `.removeChild(element)`, remove an element
+- `.appendChild(element)`, append
+- `.head` and `.body` elements
+- `.images`, `.anchors`, etc.: all elements of that type
+
+---
+
+# Working with Elements
+
+```javascript
+var is = document.querySelectorAll("img.wide");  // all images with class="wide"
+
+var ps = document.getElementsByTagName("p");     // find all <p>
+var as = ps[0].getElementByTagName("a");         // find all <a> in first <p>
+```
+
+Some properties of each element
+- `.innerHTML`: the actual HTML content (not necessarily just text!)
+- `.<attribute>`, e.g. `.src`, any attribute of this element
+- ...alternatively: `.setAttribute(attr, val)`
+- `.style.<css-attribute>`, e.g. `document.body.style.margin = "5px"`
+- `.on<event>`, e.g. `.onclick` hooks for JS
+
+---
+
+# Attaching JS to Elements
+
+- https://developer.mozilla.org/en-US/docs/Web/Events
+- _Inline_, e.g. 
+    ```html
+    <p onclick="action(this)">Click me!</p>
+    ```
+    ```javascript
+    function action(e) { e.innerHTML = "I was clicked..."; }
+    ```
+- Via JavaScript, single or multiple handlers:
+    ```javascript
+    document.getElementById("myBtn").onclick = function(e) { ... }
+    ```
+    ```javascript
+    document.getElementById("myBtn").addEventListener("click", function(e) { ...});
+    ```
+- If set via JS, `this` is automatically given as first argument.
+
+---
+
+# Navigating the DOM
+
+https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XUL/Tutorial/Document_Object_Model#Navigating_the_DOM
+
+- DOM is a tree structure, so you can navigate it
+- Root is `document.documentElement`
+- Linkage is: `firstChild`, `lastChild`, `childNodes`, `parentNode`, `nextSibling`, `previousSibling`
+
+Example: Iterate over the children of the root node:
+```javascript
+var childNodes = document.documentElement.childNodes;
+for (var i = 0; i < childNodes.length; i++) {
+    var child = childNodes[i];
+    // do something with child
+}
+```
+
+---
+
+# Node Types
+
+https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+
+Nodes (elements) can be of different typ, for example:
+- `Node.ELEMENT_NODE`: a regular node
+- `Node.TEXT_NODE`: the actual text content of an element (or attribute)
+- `Node.DOCUMENT_NODE`: a document node, e.g. `document` (or inside an iframe)
+
+---
+
+# Iterating over Elements
+
+```html
+<form id="login">
+    <input type="text"><br/>
+    <input type="password">
+</form>
+<button onclick="collect()">Collect.</button>
+
+<p id="text"></p>
+```
+```javascript
+window.collect = function () {
+    var f = document.forms["login"];
+    var text = "";
+    for (var e of f) {
+        text += e.value;
+    }
+    document.getElementById("text").innerHTML = text;
+}
+```
+
+---
+
+# Modifying the DOM
+
+`document.createElement(tagname)` creates (and returns) a new element.
+
+Use `.insertBefore()` and `.appendChild()` to add the new element to the DOM.
+
+Block elements (`p`, `div`, ...) need a _text_ node to display content.
+
+Use `.removeChild()` to remove a certain element from the DOM.
+
+```html
+<div id="div1">
+<p id="p1">This is a paragraph.</p>
+<p id="p2">This is another paragraph.</p>
+</div>
+```
+```javascript
+var para = document.createElement("p");
+var node = document.createTextNode("This is new.");
+para.appendChild(node);
+
+var element = document.getElementById("div1");
+var child = document.getElementById("p1");
+element.insertBefore(para, child);
+```
+
+
+---
+
+# Browser Object Model (BOM)
+
+- `window` object represents the browser window
+- Contains all global objects, functions and variables (will be added automatically)
+- Example methods: `window.open()` or `window.close()`
+- `window.location` manages what page is loaded; to navigate away, you can set `window.location.href = ...`
+- `window.history` manages the history of the current window; use `window.history.back()` to navigate one step back.
+
+---
+
+# A Word on Cookies
+
+A _cookie_ is a [little piece of information stored locally](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) on the client side.
+
+You can access/modify cookies via `document.cookie`. (They're text-based).
+
+Cookies are in a sense _historic_ (security exploits, disabled by browsers, etc.)
+
+If you plan on "remembering" users and their sessions, use [localstorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) or [sessionstorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
+
+```javascript
+sessionStorage.setItem('key', 'value');  // same for localStorage
+sessionStorage.getItem('key');
+sessionStorage.removeItem('key');
+sessionStorage.clear();
+```
+
+Content protected by browser (vs. plain text files on disk).
+
+---
+
+# Timeouts and "Multi-Threading"
+
+JavaScript is inherently single threaded (unless you use [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers))
+
+Never ever consider an active wait:
+```javascript
+while (!ready())
+    ;
+```
+
+![Never Ever](/assets/never.gif)
+
+---
+
+# Timeouts and "Multi-Threading"
+
+JavaScript runs the [_event loop_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop).
+
+Use `on<....>` events with callbacks to react to (active) user input.
+
+Use [_timers_](https://developer.mozilla.org/en-US/Add-ons/Code_snippets/Timers) to schedule (repetetive) tasks.
+
+```javascript
+var timeoutID = setTimeout(function[, delay, param1, param2, ...]);
+var intervalID = scope.setInterval(func, delay[, param1, param2, ...]);
+```
+
+```javascript
+var t1 = setTimeout(function() { alert('Hello world!'); }, 1000);
+var t2 = setInterval(function() { alert('Hello, again!'); }, 1000);
+clearTimeout(t1);
+clearInterval(t2);
+```
+
+---
+
+# AJAX
+
+_Asynchronous JavaScript and XML (nowadays: JSON)_
+
+- Use JS to dynamically retrieve data and manipulate the DOM
+- Mid-90ies: early appearance in IE5, Mozilla, Safari
+- Mid-2000s: wide-spread popularity (OWA, Gmail, Maps, Kayak)
+- `XMLHttpRequest` standardized in 2006 (first draft)
+- Today: state-of-the-art (webmailers, )
+- Drawback: not all crawlers execute JS, thus harder to index
+
+---
+
+<img style="width: 80%" src="/assets/Ajax-vergleich-en.svg">
+.right[<small>[DanielSHaischt, via Wikimedia Commons](https://commons.wikimedia.org/wiki/File%3AAjax-vergleich.svg)</small>]
+
+---
+
+# XMLHttpRequest
+
+Retrieve data from a (remote) URL; use the `onload` event handler to install a callback for once the response comes in.
+
+```javascript
+var xhr = new XMLHttpRequest();
+xhr.open('GET', '//openmensa.org/api/v2/canteens/229/days/20171109/meals');
+xhr.onload = function() {
+    if (xhr.status === 200) {
+        var meals = processMenu(JSON.parse(xhr.responseText));
+        renderMenu(meals);
+    } else {
+        console.log('Request failed.  Returned status of ' + xhr.status);
+    }
+};
+xhr.send();
+```
+
+More on requests next week!
+
+---
+
+# Fetch: Modern and Elegant
+
+`XMLHttpRequest` is a bit clumsy.
+
+Use the modern [`fetch` function](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (ES6).
+
+```javascript
+fetch('//openmensa.org/api/v2/canteens/229/days/20171109/meals')
+    .then(function(response) {
+    response.text().then(function(text) {
+        document.getElementById('resp').innerHTML = text;
+  });
+});
+```
+
+---
+
+# jQuery
+
+http://jquery.com/
+
+Simplifies JavaScript for DOM and AJAX interaction.
+
+Syntax `$(selector).action()`:
+- `$` for jQuery
+- _selector_ to query (or find) HTML elements (can be a result list!)
+- _action_ to perform on the element(s)
+
+Examples:
+- `$(this).hide()`: hides current element
+- `$('p').hide()`: hides all `p` elements
+- `$('.test').hide()`: hides all elements with class `.test`
+- `$('#test').hide()`: hides the element with id `test`
+
+---
+
+# jQuery: DOM Traversal and Manipulation
+
+Get the `<button`> element with the class 'continue' and change its HTML to 'Next Step...'
+
+```javascript
+$('button.continue').html('Next Step...');
+```
+
+Other frequently used functions:
+- `.css('attribute', 'value')`: set certain CSS properties
+- `.attr('id', 'value')`: set certain element attriutes (id, etc.)
+- `.append()`, `.remove()`, etc. to modify DOM
+
+---
+
+# jQuery: Event Handling
+
+Show the `#banner-message` element that is hidden with `display:none` in its CSS when any button in `#button-container` is clicked.
+
+```javascript
+var hiddenBox = $('#banner-message');
+$('#button-container button').on('click', function (event) {
+    hiddenBox.show();
+});
+```
+
+---
+
+# jQuery: Ajax
+
+```html
+<blockquote></blockquote>
+```
+
+```javascript
+$.ajax({
+    url: '//api.icndb.com/jokes/random',
+    data: {
+        firstName: 'Hans',
+        lastName: 'Dampf'
+    },
+    success: function (data) {
+        $('blockquote').text(data.value.joke);
+    }
+});
+```
+
+```javascript
+$.ajax({
+    url: '//api.icndb.com/jokes/random'
+    })
+    .done(function (data) {
+        $('blockquote').text(data.value.joke);
+    });
+```
+
+---
+
+# Summary
+
+The DOM and BOM allow you to dynamically interact with the current window and the page that's currently rendered.
+
+JavaScript allows you to modify the DOM as long as the page is open.
+
+jQuery makes traversing and manipulating the DOM ridiculously easy.
+
+jQuery selectors make it easy to apply manipulations to lists of elements; think almost like a database query!
+
+Use `$.ajax` (or if `XMLHttpRequest`, if no jQuery) to dynamically load data and alter your page.
+
+**Outlook**: Even with jQuery, rendering dynamic content is pretty cumbersome -- we'll talk about toolkits in a few weeks!
