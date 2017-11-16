@@ -57,7 +57,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 	Use javascript to modify the *document object model* (DOM) to change content and style (layout) of web pages dynamically.
 	
-- **HTTP, requests and responses (Nov 16)**
+- **HTTP, requests and responses (Nov 16, [slides](/06s-http), [assignments](/06a-http/))**
 
 	Learn about the [*hypertext transport protocol* (v1.1)](https://tools.ietf.org/html/rfc7231) which forms the foundations of communcation between web agents (browsers) and servers.
 	We'll briefly talk about HTTPS and certificates.
