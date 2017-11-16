@@ -5,10 +5,15 @@ permalink: /06a-http/
 
 # Assignment 6: HTTP
 
-## Curl and Postman
+The hardest part of this assignment is to learn to use another set of tools (curl and Postman), and to read and understand API documentations, which often come in very different quality.
+
+
+## Postman and curl+jq
 
 Practice using curl and/or Postman, by trying all the examples of the [Internet Chuck Norris Database](http://www.icndb.com/api/).
 Pay attention to the payload as well as to the response headers.
+
+Note that if you use curl, you may want to get familiar with [jq](https://stedolan.github.io/jq/download/).
 
 
 ## Remeeting API
@@ -31,18 +36,29 @@ password: fhro
 First, try to receive all previously processed recordings using basic auth from <https://api.remeeting.com/v1/recognitions/>.
 For `curl`, use the `-u user:password` argument.
 
-To obtain a Bearer token, you need to `POST` to the `/access/` end point of an older version of the API: <https://api.remeeting.com/v0.4/access/>.
+To obtain a Bearer token, you need to `POST` to the `/access/` endpoint of an older version of the API: <https://api.remeeting.com/v0.4/access/>.
 The payload needs to be provided as `application/json`, and you need to set the `email` and `pw_plaintext` fields.
 On success, the response will look similar to this
 
 ```json
-{"access_hash": "e5d897dc5ced970283c62f0b48d5b91aebfa23017967bfff0081676435b419b0",
-"access_token": "dGewJgxPJvVJQ4KXU4JUZ2pd", "email": "k+wt2017@rmtg.co",
-"message": "Signed in", "user": "c037"}
+{"access_hash": "...",
+"access_token": "...", 
+"email": "k+wt2017@rmtg.co",
+"message": "Signed in", 
+"user": "c037"}
 ```
 
 where `access_token` is your bearer token.
 
+
+### Uploading Audio
+
+For the following steps, you can use a [short example](https://rmtg.co/hi.wav) wav file, or record your own audio (using English language!).
+
+Follow the [documentation from #input](https://remeeting.com/api/docs/asr/v1/#input) to
+- upload audio as media url (remote), multipart form data, or binary data
+- verify out the progress of an enqueued recording
+- retrieve the transcription result
 
 
 ## Openmensa API Revisited
