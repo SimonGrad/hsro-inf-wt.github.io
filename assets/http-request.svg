@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="157px" preserveAspectRatio="none" style="width:193px;height:157px;" version="1.1" viewBox="0 0 193 157" width="193px" zoomAndPan="magnify"><defs><filter height="300%" id="fzh7d83isctd0" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="37" x2="37" y1="38.4883" y2="117.1094"/><line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="155.5" x2="155.5" y1="38.4883" y2="117.1094"/><rect fill="#FEFECE" filter="url(#fzh7d83isctd0)" height="30.4883" style="stroke: #A80036; stroke-width: 1.5;" width="54" x="8" y="3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="40" x="15" y="23.5352">Client</text><rect fill="#FEFECE" filter="url(#fzh7d83isctd0)" height="30.4883" style="stroke: #A80036; stroke-width: 1.5;" width="54" x="8" y="116.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="40" x="15" y="136.6445">Client</text><rect fill="#FEFECE" filter="url(#fzh7d83isctd0)" height="30.4883" style="stroke: #A80036; stroke-width: 1.5;" width="57" x="125.5" y="3"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="43" x="132.5" y="23.5352">Server</text><rect fill="#FEFECE" filter="url(#fzh7d83isctd0)" height="30.4883" style="stroke: #A80036; stroke-width: 1.5;" width="57" x="125.5" y="116.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="43" x="132.5" y="136.6445">Server</text><polygon fill="#A80036" points="144,65.4883,154,69.4883,144,73.4883,148,69.4883" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="37" x2="150" y1="69.4883" y2="69.4883"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="85" x="44" y="65.0566">some request</text><polygon fill="#A80036" points="48,94.7988,38,98.7988,48,102.7988,44,98.7988" style="stroke: #A80036; stroke-width: 1.0;"/><line style="stroke: #A80036; stroke-width: 1.0;" x1="42" x2="155" y1="98.7988" y2="98.7988"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="95" x="54" y="94.3672">some response</text><!--
+@startuml
+
+Client -> Server: some request
+Server -> Client: some response
+
+@enduml
+
+PlantUML version 1.2017.16(Sun Sep 03 12:53:37 CEST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_144-b01
+Operating System: Mac OS X
+OS Version: 10.13.1
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

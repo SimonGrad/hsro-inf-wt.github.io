@@ -1,3 +1,6 @@
 @startuml
 
+Client -> Server: some request
+Server -> Client: some response
+
 @enduml

@@ -52,101 +52,631 @@ Korbinian Riedhammer
     </div>
     <div class="bubble-arrow"></div>
   </div>
+  </div>
 </div>
-
 
 ---
 
 # HTTP 1.1
 
+Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing<br>
 <https://tools.ietf.org/html/rfc7230>
 
+Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content<br>
 <https://tools.ietf.org/html/rfc7231>
 
-request/response protocol
+Stateless client-server protocol on top of TCP/IP.
 
+Text-based.
 
-- header and body
-- header fields: content-type, authorization,
-- verbs (GET HEAD PUT POST DELETE)
-- http status codes
-- proxies (brief)
-- https (brief; problem with proxie)
-- requests in devtools
-- requests with curl and jq
-- requests with postman
+.center[![http-request](/assets/http-request.svg)]
 
 
 ---
 
-# GET
+# Requests
 
-# HEAD
+HTTP is a text based protocol!
 
-# PUT
+A request consists of a _header_ and a _message body_.
 
-# POST
+> From rfc7230
 
-# DELETE
+```
+HTTP-message   = start-line
+                 *( header-field CRLF )
+                 CRLF
+                 [ message-body ]
+```
+
+---
+
+# Example
+
+```bash
+$ curl -v https://www.fh-rosenheim.de
+```
+
+Request (outgoing):
+
+```
+> GET / HTTP/1.1
+> Host: www.fh-rosenheim.de
+> User-Agent: curl/7.54.0
+> Accept: */*
+> 
+```
+
+Response (incoming):
+
+```
+< HTTP/1.1 200 OK
+< Date: Thu, 16 Nov 2017 01:24:00 GMT
+< Server: Apache
+< Cache-Control: private
+< Vary: User-Agent
+< Content-Length: 32284
+< Content-Type: text/html; charset=utf-8
+<
+...
+```
+
+---
+
+# Request
+
+```shell
+GET / HTTP/1.1             # verb path proto
+Host: www.fh-rosenheim.de  # dns name
+User-Agent: curl/7.54.0    # where are we calling from?
+Accept: */*                # what can we render?
+```
+
+Verbs:
+- `GET` or retrieve a page
+- `HEAD` peek at a page (no body, just headers)
+- `PUT` some data to the server (upload)
+- `POST` something to the server (upload, creation)
+- `DELETE` something from the server
+
+Headers: `Name: value`
+
+Authorization header: `Authorization: Bearer|Basic ...`
+
+---
+
+# Response
+
+```
+HTTP/1.1 200 OK                         # proto status-code status-text
+Date: Thu, 16 Nov 2017 01:24:00 GMT     # for the record or cache
+Server: Apache                          # your waiter was...
+Cache-Control: private                  # this is for the browser
+Vary: User-Agent                        # ..ditto
+Content-Length: 32284                   # how much data to expect?
+Content-Type: text/html; charset=utf-8  # this will be text
+
+...
+```
+
+HTTP status codes: three digits, [specified in rfc7231](https://tools.ietf.org/html/rfc7231#section-6.1)
+
+`Content-Length` is in bytes (raw)
+
+`Content-Type`: [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of response body
+- `text/html`
+- `application/json`
+- `image/png`, etc.
 
 
 ---
 
 # 100 CONTINUE
 
-- Hey, what's the password for the materials?
-- One sec.
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey, what's the password for the materials?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">I got it here.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
 
+The server received your request and started working on it.
+
+---
 
 # 200 OK
-- Hey, what's the password for the materials?
-- 412952
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey, what's the password for the materials?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">412952</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+Usually in response to `GET` or `PUT`.
+
+The server processed your request, and sends the data along.
+
+---
 
 # 201 CREATED
-- Drinks tomorrow at 8p
-- Got it!
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Drinks tomorrow at 8p</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">Got it!</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+Usually in response to `POST`.
+
+The server processed your request, and created the file.
+
+---
 
 # 204 NO CONTENT
-- Please take out the trash
-- &nbsp;
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Please take out the trash</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message"></p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+Usually in response to `DELETE`.
+
+The server processed your request, and deleted the file.
+
+---
 
 # 301 MOVED PERMANENTLY
-- Hey dude, what's up?
-- Peter's number is now 412-123-1532
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey Peter, what's up?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">Peter's number is now 412-123-1532</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+In response to anything, goes typically unnoticed.
+
+The server knows what you want, but it is now somewhere else.
+
+---
 
 # 302 FOUND (MOVED TEMPORARILY)
-- Hey dude, what's up?
-- Peter is visiting his parents, try 423-123-4152
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey Peter, what's up?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">Peter is staying at his parents, try 423-123-4152</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+In response to anything, goes typically unnoticed.
+
+The server knows what you want, but it is _currently_ somewhere else.
+
+---
 
 # 400 BAD REQUEST
-- jang vIDa je due luq. ‘ach ghotvam’e’ QI’yaH-devolved qaS.
-- ???
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">jang vIDa je due luq. ‘ach ghotvam’e’ QI’yaH-devolved qaS.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">???</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+The server has no idea what you want...
+
+---
 
 # 401 UNAUTHORIZED
-- Hey, can I stay the night?
-- What's the magic word?
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey, can I come up for coffee?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">I don't think my girlfriend would approve...</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+The server has what you are looking for, but you need to authorize.
+
+---
 
 # 403 FORBIDDEN
-- Hey, can I stay the night?
-- Nope.
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Can I drive your car?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">No way.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+The server has what you are looking for, but you can't have it.
+
+---
 
 # 404 NOT FOUND
-- Can you borrow me your camera?
-- I can't find it anymore.
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Can you borrow me your camera?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">I can't find it anymore.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+The server can't find what you're looking for.
+
+---
 
 # 409 CONFLICT
-- Drinks tonight?
-- No can do, I have a date.
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Drinks tonight?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">No can do, I have a date.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+Typically in response to a `PUT`, `POST` or `DELETE`.
+
+The server understands what you want to do, but there is a conflict that needs to be resolved first.
+
+---
 
 # 410 GONE
-- Can you send me the password for the materials?
-- I had it but I lost it.
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Can you send me the password for the materials?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">I had it but I lost it.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+The server knows what you want, but doesn't have it anymore.
+
+---
 
 # 500 INTERNAL SERVER ERROR
-- Hey what's up?
-- 9uhflo23hfs-d0fha-23hfldks;adf
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey what's up?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">9uhflo23hfs-d0fha-23hfldks;adf</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+The server is f***** up
+
+---
 
 # 503 SERVICE UNAVAILABLE
-- Hey can I call you?
-- Not right now
+
+<div class="whatsapp">
+  <div class="speech-wrapper">
+  <div class="bubble alt">
+    <div class="txt">
+      <p class="name alt">Client</p>
+      <p class="message">Hey can I call you?</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow alt"></div>
+  </div>
+  <div class="bubble">
+    <div class="txt">
+      <p class="name">Server</p>
+      <p class="message">Not right now, in a meeting.</p>
+      <span class="timestamp">10:18 pm</span>
+    </div>
+    <div class="bubble-arrow"></div>
+  </div>
+  </div>
+</div>
+
+Typically received if the server (or loadbalancer) is overloaded.
+
+The server can't serve you right now.
+
+---
+
+# Websites and APIs
+
+Typically, the _browser_ makes requests to _websites_ and _resources_.
+- `Content-Type: text/html` or other media types (100s per page...)
+- (often) static and cacheable
+- typically `GET` to receive, `POST` to transmit (PHP...)
+- _old:_ server assembles complete page (dynamically), client renders
+
+Ajax requests are typically consuming _advanced programming interfaces_ (APIs).
+- `Content-Type: application/json`, sometimes XML variants
+- non-cachable, often state-less
+- sending and receiving, but only _data_
+- _modern:_ server provides static pages, client dynamically loads data
+
+
+---
+
+# REST APIs
+
+REST APIs are typically organized hierarchically, and follow the CRUD (create, read, update, delete) semantics.
+
+`api.host.com/resource/id`, for example `.../users/c30`.
+
+_Create_ by `POST`ing to `/resource/` (note the trailing slash)
+
+_Read_ by `GET`ting from `/resource/id`
+
+_Update_ by `PUT`ting to `/resource/id`
+
+_Delete_ by `DELETE`ing `/resource/id`
+
+API will typically accept and return JSON objects.
+
+```shell
+curl http://api.icndb.com/jokes/random
+```
+```json
+{"type": "success", "value": { "id": 81, 
+"joke": "Chuck Norris invented his own type of karate. "
+			"It's called Chuck-Will-Kill.", "categories": []}}
+```
+
+---
+
+# Blast from the Past: Form Upload
+
+<div style="float: left; margin: 10px;">
+<form action="login.php" method="POST">
+Username: <input type="text" name="user"><br>
+Password: <input type="password" name="password"><br>
+<button style="float: right" type="submit">Submit</button>
+</form>
+</div>
+
+```html
+<form action="login.php" method="POST">
+Username: <input type="text" name="user"><br>
+Password: <input type="password" name="password"><br>
+<button type="submit">Submit</button>
+</form>
+```
+
+If you hit the submit button, you essentially send this request:
+
+```
+POST /login.php HTTP/1.1
+Host: ...
+Content-Type: application/x-www-form-urlencoded
+Content-Length: ...
+
+user=...&password=...
+```
+
+...which will trigger a page reload.
+
+**Avoid at all cost.**
+Use Javascript and AJAX if possible.
+
+**Do use `form`, however**, since bootstrap can help you with input validation.
+
+---
+
+# Caveats for Sending Requests
+
+Among the most common errors for failed requests are:
+
+- incorrect URL (leading slash? typo?)
+- incorrect HTTP verb
+- missing (or wrong) `Content-Type` on `PUT` or `POST`
+- missing or wrong `Authorization` header
+- payload not properly formatted (form-encoded? JSON?)
+- not following redirects (30x)
+- status code is not checked (never _assume_: it makes an _ass_ of _you_ and _me_!)
+
+---
+
+# HTTPS
+
+HTTP is a (plain) text based protocol transmitted over TCP/IP.
+
+HTTPS uses SSL/TLS (secure socket layer/transport layer security) with certificates.
+
+Different URI schema: `https://...` (port 443) vs. `http://...` (80)
+
+Webbrowser verifies the server certificate against certificate authority (CA; GoDaddy, GlobalSign, etc.)
+
+Use server certificate to encrypt traffic between client and server (both request and response).
+
+**Pro:** It's much harder to spy on what people are browsing
+
+**Contra:** You cut out proxies/caches, since they can't possibly know what you're browsing.
+
+
+---
+
+![cert-valid](/assets/cert-valid.png)
 
