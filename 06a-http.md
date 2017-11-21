@@ -38,6 +38,14 @@ For `curl`, use the `-u user:password` argument.
 
 To obtain a Bearer token, you need to `POST` to the `/access/` endpoint of an older version of the API: <https://api.remeeting.com/v0.4/access/>.
 The payload needs to be provided as `application/json`, and you need to set the `email` and `pw_plaintext` fields.
+
+```
+POST /v0.4/access/ HTTP/1.1
+Content-Type: application/json
+
+{"email": "k+wt2017@rmtg.co", "pw_plaintext": "fhro"}
+```
+
 On success, the response will look similar to this
 
 ```json
