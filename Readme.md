@@ -35,13 +35,16 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 ## Syllabus
 - **Introduction (Oct 5, [slides](/01s-intro/), [assignments](/01a-tools/))**
+
 	With a few examples we dig right into the necessary tools for a web developer: git, editor, developer tools, and if course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the pages of the [W3C](https://www.w3.org/).
 
 - **HTML (Oct 12, [slides](/02s-html/), [lecture notes](/02ln-html/), [assignments](/02a-html/))**
+
 	The *hypertext markup language* is the backbone of all web sites, and its technically a descriptive (not a programming) language.
 	We'll use it to encode the _information_ that we want to present, but (ideally) not the looks.
 
 - **CSS (Oct 19, [slides](/03s-css/), [lecture notes](/03ln-css/), [assignments](/03a-css/))**
+
 	Use *cascading stylesheets* to render your HTML into the looks you want.
 	
 - **JavaScript, pt. 1 (Oct 26, [slides](/04s-js-1/), [lecture notes](/04ln-js-1/), [assignments](/04a-js-1/))**
@@ -50,16 +53,20 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 > No class or tutorials on Nov 2 -- please use the time to work on your projects!
 
 - **JavaScript, pt. 2 (Nov 9, [slides](/05s-js-2/), [assignments](/05a-js-2/))**
+
 	Use javascript to modify the *document object model* (DOM) to change content and style (layout) of web pages dynamically.
 	
 - **HTTP, requests and responses (Nov 16, [slides](/06s-http), [assignments](/06a-http/))**
+
 	Learn about the [*hypertext transport protocol* (v1.1)](https://tools.ietf.org/html/rfc7231) which forms the foundations of communcation between web agents (browsers) and servers.
 	We'll briefly talk about HTTPS and certificates.
 
-- **Node.js, Express.js and databases (Nov 23)**
-	Use your knowledge about JavaScript and HTTP to build a basic webserver with node that accesses a (no/SQL)* database.
+- **Node.js, Express.js and databases (Nov 23, [slides](/07s-express-db/), [assignments](/07a-express-db/))**
+
+	Use your knowledge about JavaScript and HTTP to build a basic webserver with node that accesses a (no/SQL) database.
 
 - **Vue.js (Nov 30)**
+
 	Learn about the *model-view-controller* MVC, and more specifically the *model-viewmodel-view-controller* patterns and build dynamic web pages with vue.js.
 
 - **Written mid-term, kick-off presentations (Dec 7)**
@@ -67,17 +74,21 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 	_Instead of class and tutorials._
 
 - **Deployment (Dec 14)**
+
 	Learn about how to deploy your web app with [Heroku](https://www.heroku.com/) or [docker](https://www.docker.com)).
 
 - **Project progress meetings (Dec 21, all day)**
-	Each team meeting will meet individually with the instructor, TA will help with projects in tutorials.
+
+	Each team meeting will meet individually with the instructor, tutor will help with projects in tutorials.
 
 - **Advanced topics in web development (Jan 11)**
+
 	We'll look into advanced topics of web development including *cross-origin resource sharing* (CORS), security and authentification, and persistent connections to webservers (websockets, via [socket.io](https://socket.io/)).
-	TA will help with projects in tutorials.
+	tutor will help with projects in tutorials.
 
 - **Project progress meetings (Jan 18, all day)**
-	Each team meeting will meet individually with the instructor, TA will help with projects in tutorials.
+
+	Each team meeting will meet individually with the instructor, tutor will help with projects in tutorials.
 	
 - **Final project presentations (Jan 25, all day)**
 
