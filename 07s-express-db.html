@@ -1,0 +1,420 @@
+---
+layout: presentationA
+title: Express.js and Databases
+permalink: /07s-express-db/
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Webtechnologien 2017
+
+Korbinian Riedhammer
+
+.skip[
+![server-wtf](/assets/server-wtf.png)
+]
+
+---
+
+# Webserver with Express.js
+
+.skip[
+Please check the updated [syllabus and dates](https://hsro-inf-wt.github.io/)!
+]
+
+---
+
+# Webserver
+
+- typically listens on ports 80 (HTTP) or 443 (HTTPS)
+- designed to be state-less, i.e. each request is independent
+- plenty of open-source software
+	- [Apache httpd](https://httpd.apache.org/)
+	- [nginx](https://nginx.org/en/)
+	- [express.js](https://expressjs.com) (that's for today!)
+- serves static files ("web sites")
+- serves endpoints ("api")
+	+ almost always linked to a database
+	+ e.g. a student database
+		+ GET <http://localhost/students/> lists all
+		+ GET <http://localhost/students/af42f> retrieves `af42f`
+		+ POST <http://localhost/students/> creates new student
+
+---
+
+# Agenda
+
+- getting started with Expressjs
+- basic requests
+	+ header
+	+ URL parameters
+	+ body and content-types
+- defining endpoints
+	+ verbs
+	+ variables
+- promises
+- connecting to mongo
+- connecting to mysql
+	+ avoiding query injection
+
+---
+
+# Express.js
+
+Install node.js (with npm) and express.js
+
+```shell
+$ npm install express
+```
+
+Create a `.js` file for your app:
+
+```js
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+app.use(bodyParser.text())
+
+app.use((req, res) => {    // react to any requst
+	console.log(req)
+	res.status(200).end()  // sends 200 OK, no body, closes connection
+})
+
+app.listen(3000, () => console.log("Server ready on port 3000"))
+```
+
+Run it!
+
+```shell
+$ node app.js
+```
+
+---
+
+# Syntax Refresher
+
+We use javascript _interpreted on the server side_ -- use ES6!
+
+```js
+const a = 4  // block-scoped constant, java: final
+let b = 3    // block-scoped variable, like java variable
+var c = 2    // just like before: execution context scoped
+```
+
+```js
+// anonymous function, old style
+var square = function (arg) {
+	return arg * arg;
+};
+
+// lambda expression, new style
+const square = (arg) => arg * arg
+```
+
+```js
+var wrap = function (arg) {
+	console.log(arg);
+	return {val: arg};
+};
+
+const wrap = (arg) => {
+	console.log(arg)
+	return {val: arg}
+}
+```
+
+---
+
+# Express.js: Application-level Middleware
+
+```js
+var app = express()
+
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next()
+})
+```
+
+_Middleware_ is a callback with three arguments.
+
+`req` and `res` are the [request](https://expressjs.com/en/4x/api.html#req) and [response](https://expressjs.com/en/4x/api.html#res) objects, `next` (optional) is the next middleware.
+
+`app.use(middleware)` triggers for every request that comes in.
+
+---
+
+# Specific Middleware
+
+```js
+const bodyParser = require('bodyParser')
+
+// treat all request bodies as text/plain
+app.use(bodyParser.text())
+
+// treat all request bodies as application/json
+app.use(express.json())
+
+// serve all files in folder 'static'
+app.use(express.static('static'))
+
+// attach middleware to path (but all HTTP verbs)
+app.use('/my/endpoint', (req, res, next) => {
+	console.log('someone accessed /my/endpoint')
+	next()
+})
+
+// attach middleware to path and verb
+app.get('/my/endpoint', (req, res, next) => {
+	console.log('someone called GET /my/endpoint')
+	next()
+})
+```
+
+---
+
+# Accessing Headers, URL Params and Body
+
+```js
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res, next) => {
+	console.log(req.headers)
+	console.log(req.params)
+	console.log(req.body)
+
+	res.status(200).send("Hello World!")
+})
+
+app.listen(3000, () => console.log("Server ready on port 3000"))
+```
+
+---
+
+# Responding to Requests
+
+```js
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res, next) => {
+	res.status(200).send("Hello World!").end()
+})
+
+app.post('/', (req, res, nxst) => {
+	res.status(201).json({'key': 'value'}).end()
+})
+
+app.put('/', express.json(), (req, res, next) => {
+	console.log(req.body)
+	res.status(200).end()
+})
+
+app.listen(3000, () => console.log("Server ready on port 3000"))
+```
+
+---
+
+# Stateless?
+
+.w65[
+![xkcd869](/assets/xkcd869-server-attention-span.png)
+]
+.right[xkcd/869]
+
+---
+
+# Defining Endpoints
+
+Serve static files via `app.use(express.static('folder'))`, e.g. `GET /index.html` would deliver `folder/index.html` (if exists).
+
+_Endpoint_ of an API is where the logic is; defined by _path_ and _verb_.
+
+```js
+// GET /students/?var=value
+app.get('/students/', (req, res, next) => {
+	// res.query.var == 'value'
+	res.status(200).json([]).end()  // return empty array
+})
+
+// GET /students/fjdk
+app.get('/students/:id', (req, res, next) => {
+	console.log('requested student ' + req.params.id)  // "fjdk"
+
+	res.status(404).end()	
+})
+
+// PUT /students/asdf {"key": "value"}
+app.put('/students/:id', express.json(), (req, res, next) => {
+	// req.params.id == 'asdf'
+	// req.body is json, {key: 'value'}
+})
+```
+
+---
+
+# Refresh: Promise
+
+A `Promise` is an object that can be resolved or rejected.
+
+```js
+somePromise
+	.then((arg) => {
+		console.log('everything seems cool: ' + arg)
+	})
+	.catch((err) => {
+		console.log('oops, some error: ' + err)
+	})
+```
+
+If the promise is resolved, the `.then` callback is executed.
+
+If the promise is rejected, the `.catch` callback is executed.
+
+One catch for all chained `.then` is enough (and placed last).
+
+---
+
+# MongoDB
+
+<https://www.mongodb.com/>
+
+Schemaless database (read: key-value store).
+
+No table layout required, directly JSON-compatible.
+
+Has databases and collections.
+
+Instead of primary key: implicit `_id` field
+
+noSQL, but has similar (yet less powerful) query language
+
+Docker: <https://github.com/docker-library/docs/tree/master/mongo>
+
+---
+
+# Mongo from Express
+
+```shell
+$ npm install mongodb
+```
+
+```js
+const express = require('express');
+const mongo = require('mongodb');
+var app = express()
+
+const url = 'mongodb://localhost:27017/mydb';
+
+// insert into
+mongo.MongoClient.connect(url)
+	.then(conn => conn.collection('riko493'))
+	.then(coll => coll.insertOne({name: 'korbinian', user: 'riko494'}))
+	.catch((err) => {
+		console.log(err);
+	});
+```
+
+---
+
+# Mongo from Express
+
+```js
+// find all objects in 'riko493'
+mongo.MongoClient.connect(url)
+	.then(conn => conn.collection('riko493'))
+	.then(coll => coll.find().toArray())
+	.then(hits => console.log(hits))
+	.catch((err) => {
+		console.log(err);
+	});
+
+// find objects in 'riko493' that match {user: 'riko493'}
+mongo.MongoClient.connect(url)
+	.then(conn => conn.collection('riko493'))
+	.then(coll => coll.find({user: 'riko493'}).toArray())
+	.then(hits => console.log(hits))
+	.catch((err) => {
+		console.log(err);
+	});
+```
+
+- `deleteOne(query)`: delete the first hit
+- `findOne(query)`: return the first hit (no promise)
+
+---
+
+# mysql
+
+<https://www.mysql.com/>
+
+One of the most popular databases (and query languages)
+
+Tables and views need to be defined; `ALTER TABLE` expensive.
+
+Primary and secondary keys; not directly JSON compatible.
+
+Powerful SQL language with views and joins.
+
+Docker: <https://github.com/docker-library/docs/tree/master/mysql>
+
+---
+
+# mysql from Express
+
+```shell
+npm install mysql2
+```
+
+```js
+const express = require('express')
+const mysql = require('mysql2/promise')  // wrap everything in promises
+const app = express()
+
+mysql.createConnection({
+		host: host,
+		user: 'user',
+		password: 'dbpassword',
+		database: 'mydb'
+	})
+	.then((conn) => conn.query('CREATE TABLE riko493 '
+		'(id varchar(10) not null, name varchar(20), '
+		'primary key (id))'))
+	.then((result) => console.log(result))
+	.catch((err) => console.log(err));
+```
+
+Use any sql query in `conn.query(...)`
+
+---
+
+# SQL Query Injection
+
+![xkcd327](/assets/xkcd327-exploits-of-a-mom.png)
+
+```js
+body = {id: 'af24', name: 'Peter'}
+db.query('insert into riko493 (id,name) values ('`+body.id+',"'+body.name+`'"")')
+```
+```js
+body = {id: 'af24', name: 'Robert"); DROP TABLE riko493'}  // oops...
+```
+
+Instead, use query argument replacement:
+
+```js
+db.query('insert into riko493 (id,name) values (?,?)', [body.id,body.name])
+```

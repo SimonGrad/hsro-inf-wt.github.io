@@ -26,10 +26,10 @@ $ npm -v
 Note that lines starting with `$` indicates the prompt (i.e. the `$ ` is not part of the command), whereas other lines are output from the programs.
 In the example above, `node -v` ("version") results in `v8.6.0`, and `npm -v` results in `5.3.0`.
 
-Install [express.js](https://expressjs.com/) and body-parser using the node package manager:
+Install [express.js](https://expressjs.com/) using the node package manager:
 
 ```shell
-$ npm install express body-parser
+$ npm install express
 ```
 
 Now, create your first basic web server application by creating and editing the file `app.js`:
