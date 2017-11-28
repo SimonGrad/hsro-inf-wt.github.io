@@ -689,6 +689,52 @@ Solution: <https://jsfiddle.net/sikoried/4f51d2bm/>
 
 ---
 
+# Advanced Topics
+
+- components
+- routing
+- state management
+- persistent authentication using `localStorage`
+- devtools
+
+---
+
+# Components
+
+<https://vuejs.org/v2/guide/components.html>
+
+Vue uses the _composite pattern_ to model its components.
+
+![vue-components](/assets/vue-components.png)
+
+---
+
+# Components
+
+<https://vuejs.org/v2/guide/components.html>
+
+{% raw %}
+```html
+<div id="example">
+  <my-component></my-component>
+</div>
+```
+{% endraw %}
+
+```js
+// register
+Vue.component('my-component', {
+  template: '<div>A custom component!</div>'
+})
+
+// create a root instance
+new Vue({
+  el: '#example'
+})
+```
+
+---
+
 # Routing
 
 <https://vuejs.org/v2/guide/routing.html>
