@@ -122,6 +122,8 @@ var app2 = new Vue({
 
 If you need to get hold of an element, use the `$ref` object.
 
+If you need to access variables in data, use `this.$data.<variable>`.
+
 ```html
 <div id="example">
 	<p ref="myp">Hello</p>
@@ -133,9 +135,14 @@ If you need to get hold of an element, use the `$ref` object.
 ```js
 let app = new Vue({
 	el: '#exmaple',
+	data: {
+		counter: 0
+	},
 	mounted: function() {
 		this.$refs.myp.innerHTML = 'meh'
 		this.$refs['my-p'].innerHTML = 'muh'
+
+		this.$data.counter = 5
 	}
 })
 ```
@@ -701,6 +708,12 @@ Learn more about routing using `vue-router`:
 ]
 
 More sophistcated state management: <https://vuex.vuejs.org/en/intro.html>
+
+---
+
+# Example with Authentication
+
+<https://auth0.com/blog/vuejs2-authentication-tutorial/>
 
 ---
 
