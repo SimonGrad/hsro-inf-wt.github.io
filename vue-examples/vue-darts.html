@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>Vue.js</title>
+	<script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+
+<div id="darts-app">
+
+<div v-if="state == 0">
+Points: <input type="number" v-model.number="game">
+
+Players:
+<ul>
+  <li v-for="p in players">{{p.name}}</li>
+</ul>
+
+<input type="text" ref="name">
+<button v-on:click="add">
+Add
+</button>
+
+<button v-on:click="start">
+Start
+</button>
+</div>
+
+<div v-if="state == 1">
+
+<div>
+Current: {{ players[current].name }}: {{moves.reduce(function(acc, i) { return acc - i; }, players[current].score)}}
+</div>
+
+<ul>
+<li v-for="m in moves">{{m}}</li>
+</ul>
+<button v-if="moves.length > 0" v-on:click="undo">
+Undo
+</button>
+
+<div v-if="moves.length < 3">
+<input type="number" ref="score">
+<button v-on:click="move">
+Enter
+</button>
+</div>
+
+<button v-if="moves.length == 3" v-on:click="next">
+next player
+</button>
+
+
+<div>
+<ul>
+<li v-for="(p, i) in players">{{p.name}}, {{p.score}} <span v-if="i == current">active</span></li>
+</ul>
+</div>
+
+</div>
+
+<template v-if="state == 2">
+{{ winner.name }} won the game; sequence was {{ winner.moves }}.
+<button v-on:click="restart">
+restart
+</button>
+</template>
+</div>
+
+
+<script src="vue-darts.js">
+</script>
+</body>
+</html>

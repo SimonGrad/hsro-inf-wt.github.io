@@ -1,0 +1,711 @@
+---
+layout: presentationA
+title: Vue.js
+permalink: /08s-vuejs/
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Webtechnologien 2017
+
+Korbinian Riedhammer
+
+.skip[
+![vuejs](/assets/vuejs.gif)
+]
+
+<https://vuejs.org/v2/guide/index.html>
+
+---
+
+# Vue.js
+
+**Vue** (pronounced `/vjuː/`, like **view**) is a framework to build user interfaces.
+
+Incrementally adoptable, focuses on (you guessed it) the **view** layer.
+
+.skip[
+[Guide](https://vuejs.org/v2/guide/index.html) makes heavy use of ES2015 syntax ([learn more](https://babeljs.io/learn-es2015/)).
+]
+
+.skip[
+Easy to import.
+]
+
+```html
+<script src="https://unpkg.com/vue"></script> <!-- that's all :-) -->
+```
+
+---
+
+# Model - View - View Model (MVVM)
+
+.skip[
+![vue-mvvn](/assets/vue-mvvm.png)
+]
+
+---
+
+# Declarative Rendering
+
+
+{% raw %}
+```html
+<div id="app">
+  {{ message }}
+</div>
+```
+{% endraw %}
+
+```js
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
+
+<https://jsfiddle.net/sikoried/00hdaLmr/>
+
+---
+
+# Binding
+
+{% raw %}
+```html
+<div id="app-2">
+  <span v-bind:title="message">
+    Hover your mouse over me for a few seconds
+    to see my dynamically bound title!
+  </span>
+</div>
+```
+{% endraw %}
+
+```js
+var app2 = new Vue({
+  el: '#app-2',
+  data: {
+    message: 'You loaded this page on ' + new Date().toLocaleString()
+  }
+})
+```
+
+<https://jsfiddle.net/sikoried/rrj1t9a3/>
+
+[`title` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes)
+
+---
+
+# Lifecycle of a `Vue` Instance
+
+.overflow[
+![lifecycle](/assets/vuejs-lifecycle.png)
+]
+
+---
+
+# jQuery-like Access
+
+If you need to get hold of an element, use the `$ref` object.
+
+```html
+<div id="example">
+	<p ref="myp">Hello</p>
+	<p ref="my-p">World</p>
+</div>
+```
+
+
+```js
+let app = new Vue({
+	el: '#exmaple',
+	mounted: function() {
+		this.$refs.myp.innerHTML = 'meh'
+		this.$refs['my-p'].innerHTML = 'muh'
+	}
+})
+```
+
+
+---
+
+# Conditionals
+
+Use the `v-if` directive to control what gets included
+
+{% raw %}
+```html
+<div id="app-3">
+  <span v-if="seen">Now you see me</span>
+</div>
+```
+{% endraw %}
+
+```js
+var app3 = new Vue({
+  el: '#app-3',
+  data: {
+    seen: true
+  }
+})
+```
+
+<https://jsfiddle.net/sikoried/2b4pj4pz/>
+
+---
+
+# Loops
+
+Use the `v-for` directive to iterate over lists.
+
+{% raw %}
+```html
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+```
+{% endraw %}
+
+```js
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    todos: [
+      { text: 'Learn JavaScript' },
+      { text: 'Learn Vue' },
+      { text: 'Build something awesome' }
+    ]
+  }
+})
+```
+
+<https://jsfiddle.net/sikoried/2b4pj4pz/>
+
+---
+
+# Bind to Events
+
+Use the `v-on` directive, with `:argument` (e.g. `v-on:click`).
+
+{% raw %}
+```html
+<div id="app-5">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">Reverse Message</button>
+</div>
+```
+{% endraw %}
+
+```js
+var app5 = new Vue({
+  el: '#app-5',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+  methods: {
+    reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
+})
+```
+
+<https://jsfiddle.net/sikoried/s2yj2879/>
+
+---
+
+# Two-Way Binding
+
+Use `v-model` to bind a establish a two-way binding of a variable and a view.
+
+{% raw %}
+```html
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+```
+{% endraw %}
+
+```js
+var app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
+
+---
+
+# Interpolations
+
+Use "moustache" syntax ({% raw %}`{{}}`{% endraw %}) syntax to interpolate text.
+
+{% raw %}
+```html
+<span>Message: {{ msg }}</span>
+<span v-once>This will never change: {{ msg }}</span>
+<p>Using mustaches, will be text: {{ rawHtml }}</p>
+<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+```
+{% endraw %}
+
+Use `bind` to bind to certain html attributes.
+
+{% raw %}
+```html
+<div v-bind:id="dynamicId"></div>
+<button v-bind:disabled="isButtonDisabled">Button</button>
+```
+{% endraw %}
+
+
+> Note: No moustaches inside html attributes.
+
+
+---
+
+# Expressions
+
+You can use javascript _expressions_ in moustaches and html attributes.
+
+{% raw %}
+```html
+{{ number + 1 }}
+
+{{ ok ? 'YES' : 'NO' }}
+
+{{ message.split('').reverse().join('') }}
+
+<div v-bind:id="'list-' + id">Careful with quotes!</div>.
+```
+{% endraw %}
+
+---
+
+# Directives
+
+The `v-...` attributes are called _directives_.
+
+```html
+<p v-if="seen">Now you see me</p>
+```
+
+They can have _arguments_ followed by a `:`
+
+```html
+<a v-bind:href="url"> binds data.url </a>
+<a v-on:click="doSomething"> binds methods.doSomething() </a>
+```
+
+...and _modifiers_, followed by a `.`
+
+```html
+<form v-on:submit.prevent="onSubmit"> ... </form>
+<!-- handler will call event.preventDefault() --> 
+```
+
+---
+
+# Computed Properties
+
+Moustaches can become complicated.
+
+{% raw %}
+```html
+<div id="example">
+  {{ message.split('').reverse().join('') }}
+</div>
+```
+{% endraw %}
+
+Better: use _computed_ properties
+
+{% raw %}
+```html
+<div id="example">
+  <input v-model="message" type="text">
+  <p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+```
+{% endraw %}
+
+```js
+var vm = new Vue({
+  el: '#example', data: { message: 'Hello' },
+  computed: {
+    reversedMessage: function () { // a computed getter
+      return this.message.split('').reverse().join('')  // this==vm
+    }
+  }
+})
+```
+
+.center[<https://jsfiddle.net/sikoried/ng34vddq/>]
+
+---
+
+# Static, Computed and Cached Properties
+
+```js
+var vm = new Vue({
+  ...
+  data: { 
+  	message: 'Hello'  // static
+  },
+  computed: {
+    reversedMessage: function () { ... }  // computed
+  },
+  methods: {
+    reverseMessageFn: function () {
+      return this.message.split('').reverse().join('')
+  	}
+  }
+})
+```
+
+{% raw %}
+```html
+<p>Computed reversed message: "{{ message }}"</p>
+<p>Computed reversed message: "{{ reversedMessage }}"</p>
+<p>Computed reversed message: "{{ reversedMessageFn() }}"</p>
+```
+{% endraw %}
+
+**Important**: Name must be unique among `data`, `computed` and `methods`
+
+---
+
+# Computed Setter and Getter
+
+```js
+var app = new Vue({
+  // ...
+  computed: {
+    fullName: {
+      // getter
+      get: function () {
+        return this.firstName + ' ' + this.lastName
+      },
+      // setter
+      set: function (newValue) {
+        var names = newValue.split(' ')
+        this.firstName = names[0]
+        this.lastName = names[names.length - 1]
+      }
+    }
+  }
+})
+```
+
+---
+
+# Watching Properties
+
+You can _watch_ properties for change.
+
+```html
+<div id="watch-example">
+  <p>
+    Ask a yes/no question:
+    <input v-model="question">
+  </p>
+</div>
+```
+
+```js
+let app = new Vue({ 
+  el: '#watch-example', 
+  data: { 
+    question: ''
+  },
+  watch: {
+  	question: function(nq, oq) {
+  		console.log('change: ' + nq + ' => ' + oq)
+  	}
+  }
+})
+```
+
+---
+
+# Debouncing and Throttling
+
+Use [lodash](lodash.com) to improve your UX.
+
+Use _debounce_ to have an action run _after a certain delay after the last change_.
+
+Use _throttle_ to allow the next action to be run _after a certain delay_.
+
+```html
+<button v-on:click="debounced">Click me</button>
+<button v-on:click="throttled">Click me</button>
+```
+
+```js
+let app = new Vue({ el: '#example', data: { counter: 0 },
+  methods: {
+    debounced: _.debounce(function(event) {
+      app.$data.counter += 1
+      console.log('increments 500ms after last click')
+    }, 500),
+
+    throttled: _.throttle(function(event) {
+      app.$data.counter += 1
+      console.log('increments once every 1s')
+    }, 1000)
+  }
+})
+```
+
+.center[<https://jsfiddle.net/sikoried/ycebzndg/>]
+
+---
+
+# Class and Style Bindings
+
+<https://vuejs.org/v2/guide/class-and-style.html>
+
+```html
+<div class="static"
+     v-bind:class="{ active: isActive, 'text-danger': hasError }">
+</div>
+```
+
+```js
+data: {
+  isActive: true,
+  hasError: false
+}
+```
+
+Result:
+
+```html
+<div class="static active"></div>
+```
+
+---
+
+# Conditional Rendering
+
+<https://vuejs.org/v2/guide/conditional.html>
+
+```html
+<div v-if="type === 'A'">
+  A
+</div>
+<div v-else-if="type === 'B'">
+  B
+</div>
+<div v-else-if="type === 'C'">
+  C
+</div>
+<div v-else>
+  Not A/B/C
+</div>
+```
+
+Use `v-if` to include/exclude something in the DOM; use `v-show` to _hide_ it (`display: none`).
+
+
+---
+
+# List Rendering
+
+<https://vuejs.org/v2/guide/list.html>
+
+You can get the index when iterating, optionally combine with `v-if`
+
+{% raw %}
+```html
+<ul id="example-2">
+  <li v-for="(item, index) in items" v-if="!item.isComplete">
+    {{ parentMessage }} - {{ index }} - {{ item.message }}
+  </li>
+</ul>
+```
+{% endraw %}
+
+```js
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    parentMessage: 'Parent',
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar', isComplete: true }
+    ]
+  }
+})
+```
+
+The view will be updated if you alter the array via its prototype methods (eg. `push()`, `pop()`, ...)
+
+---
+
+# Event Handling
+
+<https://vuejs.org/v2/guide/events.html>
+
+```html
+<!-- inline -->
+<button v-on:click="counter += 1">Add 1</button>
+
+<!-- method -->
+<button v-on:click="greet">Greet</button>
+
+<!-- method call with arguments; use $event if needed -->
+<button v-on:click="say('hi', $event)">Say hi</button> 
+```
+
+Variables need to be in `data`, methods in `methods`.
+
+---
+
+# Form Input Bindings
+
+<https://vuejs.org/v2/guide/forms.html>
+
+You can use two-way data binding using `v-model` on all form inputs: `text`, `radio`, `checkbox` and the `<select>` element.
+
+{% raw %}
+```html
+<select v-model="selected">
+  <option disabled value="">Please select one</option>
+  <option>A</option>
+  <option>B</option>
+  <option>C</option>
+</select>
+<span>Selected: {{ selected }}</span>
+```
+{% endraw %}
+
+
+```js
+new Vue({
+  el: '...',
+  data: {
+    selected: ''
+  }
+})
+```
+
+Use the `.number` and `.trim` modifiers to allow only numbers and trim whitespace.
+
+---
+
+# Sending Ajax Requests
+
+Use the extension `vue-resource` for convenient ajax requests.
+
+```html
+<script src="https://unpkg.com/vue-resource"></script>
+```
+
+```js
+{
+  // GET /someUrl
+  this.$http.get('/someUrl').then(response => {
+    // get body data
+    this.someData = response.body
+  }, response => {
+    // error callback
+  })
+}
+```
+
+<https://github.com/pagekit/vue-resource/blob/develop/docs/http.md>
+
+---
+
+# Sending Ajax Requests Example
+
+{% raw %}
+```html
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-resource"></script>
+
+<div id="app">
+<p ref="my-p1" v-html="result"></p>
+<p ref="my-p2">{{ result }}</p>
+</div>
+```
+{% endraw %}
+
+```js
+let app = new Vue({
+	el: '#app',
+  mounted: function() {
+  	this.$http.get('//api.icndb.com/jokes/random')
+    	.then(function(resp) {
+      	this.$data.result = resp.body.value.joke
+      })
+      .catch(function(err) {
+      	this.$data.result = "Something went wrong: " + err
+      })
+  },
+  data: {
+  	result: null
+  }
+})
+```
+
+.center[<https://jsfiddle.net/sikoried/pyn4n1jz/>]
+
+---
+
+# Live Example: Darts 501
+
+.skip.center[
+Solution: <https://jsfiddle.net/sikoried/4f51d2bm/>
+]
+
+---
+
+# Routing
+
+<https://vuejs.org/v2/guide/routing.html>
+
+Different views in a single page application (SPA) are often called _routes_.
+
+Learn more about routing using `vue-router`:
+- <https://router.vuejs.org/en/>
+- <https://router.vuejs.org/de/>
+
+---
+
+# State Management Pattern
+
+.skip.w60[
+![vuex](/assets/vuex-state.png)
+]
+
+More sophistcated state management: <https://vuex.vuejs.org/en/intro.html>
+
+---
+
+# Dev Tools
+
+Incredibly useful: <https://github.com/vuejs/vue-devtools>
+
+Does not work in jsfiddle (due to `iframe`).

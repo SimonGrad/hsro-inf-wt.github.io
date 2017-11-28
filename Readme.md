@@ -65,7 +65,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 	Use your knowledge about JavaScript and HTTP to build a basic webserver with node that accesses a (no/SQL) database.
 
-- **Vue.js (Nov 30)**
+- **Vue.js (Nov 30, [slides](/08s-vuejs/), [assignments](/08a-vuejs/))**
 
 	Learn about the *model-view-controller* MVC, and more specifically the *model-viewmodel-view-controller* patterns and build dynamic web pages with vue.js.
 
