@@ -1,0 +1,71 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/vue-resource"></script>
+
+	<link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+
+<div id="app">
+
+<div id="progress">
+<h1>
+Loading cantinas...
+</h1>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" v-bind:style="{width: progress}">
+    <span class="sr-only">60% Complete</span>
+  </div>
+</div>
+</div>
+
+<select v-if="canteens.length" v-on:change="load" v-model="canteenId">
+  <option v-for="c in canteens" v-bind:value="c.id">{{ c.name }}</option>
+</select>
+
+<p v-if="meals.length == 0">
+  No meal plan.
+</p>
+<ul v-else>
+  <li v-for="m in meals">{{ m.name }}</li>
+</ul>
+
+</div>
+
+<script>
+let app = new Vue({
+	el: '#app',
+  mounted: function() {
+  	this.$http.get('//openmensa.org/api/v2/canteens/')
+    	.then(resp => {
+      	console.log(resp.body)
+      	this.$data.canteens = resp.body
+        this.$data.progress = '100%'
+      })
+      .catch(err => console.log(err))
+  },
+  data: {
+  	progress: 0,
+    canteens: [],
+    meals: [],
+    canteenId: 0
+  },
+  methods: {
+  	load: function() {
+    	console.log('lade canteen ' + this.$data.canteenId)
+      this.$http.get(`//openmensa.org/api/v2/canteens/${this.$data.canteenId}/days/20171130/meals`)
+      	.then(resp => {
+        	console.log(resp.body)
+          this.$data.meals = resp.body
+        })
+    }
+  }
+})
+</script>
+</body>
+</html>

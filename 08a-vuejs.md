@@ -110,8 +110,6 @@ Create a selection element has a (disabled) "nothing selected", and a list of op
 Create an input text field and a button to add to the list of options.
 Add a paragraph that displays the currently selected option.
 
-Note: You can use `v-model` on the select and _watch_ it, or react to user input using the `v-on:change` event.
-
 {% raw %}
 <div class="framed" id="a4">
 	<select v-model="sel" ref="select">

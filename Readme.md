@@ -73,7 +73,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 	_Instead of class and tutorials._
 
-- **Deployment (Dec 14)**
+- **Deployment (Dec 14, [slides](/09s-deployment/), [assignments](09a-deployment/))**
 
 	Learn about how to deploy your web app with [Heroku](https://www.heroku.com/) or [docker](https://www.docker.com)).
 
