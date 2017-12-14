@@ -174,6 +174,9 @@ $ heroku config:set _MONGODB_URI=mongodb://wt2017:hsro@ds135956.mlab.com:35956/w
 
 > You must adjust the above command to match your mLab credentials!
 
+Modify your `server.js` so that 
+- the `mongo` module connects mLab, by changing the `url` to `process.env._MONGODB_URI` (the environment variable that was configured before)
+- The app listenes to port `process.env.PORT` (which will be set by heroku).
 
 Now you're ready to publish your node app to heroku:
 
