@@ -228,8 +228,7 @@ docker cp local.file 42f:/containered/file
 Ports need to be configured.
 
 ```bash
-# docker run -p source:dest image
-$ docker run -d -p 27017:27017 mongo
+$ docker run -d -p 27017:27017 mongo  # source:dest
 ```
 
 Containers have `stdout`:
@@ -237,6 +236,33 @@ Containers have `stdout`:
 ```bash
 $ docker logs 42f
 ```
+
+---
+
+# Docker Housekeeping
+
+Images can be pulled, listed and removed.
+
+```bash
+$ docker images    # lists images
+$ docker rmi node  # removes image `node`
+$ docker pull node:latest  # pulls `node` with tag `latest`
+```
+
+Containers can be started, paused, stopped, restarted and removed.
+
+```bash
+$ docker run node      # starts a container off image `node`
+$ docker pause 412f    # pauses container
+$ docker unpause 412f  # unpause
+$ docker ps            # list active containers
+$ docker ps -a         # list *all* containers
+$ docker stop 412f     # stop container
+$ docker restart 412f  # restart container
+$ docker rm 412f       # must be stopped first
+$ docker rm -f 412f    # stops then removes
+```
+
 
 ---
 
