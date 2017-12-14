@@ -184,3 +184,4 @@ Now you're ready to publish your node app to heroku:
 $ git push heroku master
 ```
 
+Use `heroku ps` to see how many dynos (hosts) are active, and `heroku logs --tail` to see the log output of your app to find errors.
