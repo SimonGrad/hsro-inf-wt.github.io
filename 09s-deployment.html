@@ -20,6 +20,268 @@ layout: true
 
 # Webtechnologien 2017
 
+## Deployment
+
 Korbinian Riedhammer
 
 ---
+
+# Defining Packages
+
+Node package manager (npm) uses `package.json` configuration.
+
+```json
+{
+  `"name": "node-app"`,
+  `"version": "1.0.0"`,
+  `"description": "Node.js on Docker"`,
+  "author": "First Last <first.last@example.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "latest",
+    "mongodb": "latest"
+  }
+}
+```
+
+Details of _this_ project/package.
+
+---
+
+# Managing Dependencies
+
+Node package manager (npm) uses `package.json` configuration.
+
+```json
+{
+  "name": "node-app",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "First Last <first.last@example.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  `"dependencies":` {
+    `"express": "latest",`
+    `"mongodb": "latest"`
+  }
+}
+```
+
+`dependencies` list node packages required to run this project.
+
+**Before**: manually install required packages. `npm install express; ...`
+
+**After**: batch-install all required packages. `npm install` 
+
+---
+
+# Automating Startup
+
+Node package manager (npm) uses `package.json` configuration.
+
+```json
+{
+  "name": "node-app",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "First Last <first.last@example.com>",
+  `"main": "server.js",`
+  `"scripts":` {
+    `"start": "node server.js"`
+  },
+  "dependencies": {
+    "express": "latest",
+    "mongodb": "latest"
+  }
+}
+```
+
+`scripts` list commands needed to run the app.
+
+**Before**: `node server.js` to run the app.
+
+**After**: `npm start` to run the app.
+
+---
+
+# Docker
+
+https://www.docker.com -- lightweight virtualization
+
+.w70[
+![package-software](/assets/package-software.png)
+]
+
+.center[[source](https://www.docker.com/what-container)]
+
+---
+
+# Virtual Machines vs. Containers
+
+<div>
+<img alt='docker-vm' src='/assets/docker-vm.png' style="width: 49%">
+<img alt='docker-container' src='/assets/docker-container.png' style="width: 49%">
+</div>
+
+Containers share the host OS and infrastructure
+
+.center[[source](https://www.docker.com/what-container)]
+
+---
+
+# Containers
+
+**Pros**:
+
+- very fast startup time (no VM boot time)
+- "feels" like a VM; package dependencies
+- image distribution/rollout via registry
+- orchestration tools
+
+.skip[
+
+**Cons**:
+
+- security, if mounting volumes from the host
+]
+
+---
+
+# Docker
+
+![engine-components](/assets/engine-components-flow.png)
+
+---
+
+# Docker Architecture
+
+![architecture](/assets/docker-architecture.svg)
+
+---
+
+# Controlling Docker
+
+`docker pull`: Retrieve image from repository
+
+`docker build`: Build a new image using a `Dockerfile`
+
+`docker run`: Start a new container (based off an image)
+
+---
+
+# Docker Images
+
+```
+FROM node:carbon
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# copy package info into container
+COPY package*.json ./
+
+# install packages
+RUN npm install
+
+# copy other stuff from directory into container
+COPY . .
+
+# expose node default port
+EXPOSE 3000
+
+# entry point when starting container
+CMD [ "npm", "start" ]
+```
+
+```bash
+$ docker build -t image-name .        # build image
+$ docker run -p 3000:3000 image-name  # run container (w/ ports exposed)
+```
+
+---
+
+# Docker Containers
+
+Containers are instantiated images.
+
+```bash
+docker run -it alpine  # runs an interactive container with mini-linux
+docker run -d mongo    # runs mongo as a service
+```
+
+You can execute commands in containers, or copy data in/out:
+
+```bash
+docker exec -it 42f /bin/bash
+docker cp local.file 42f:/containered/file
+```
+
+Ports need to be configured.
+
+```bash
+# docker run -p source:dest image
+$ docker run -d -p 27017:27017 mongo
+```
+
+Containers have `stdout`:
+
+```bash
+$ docker logs 42f
+```
+
+---
+
+# Docker Services
+
+You can aggregate containers to a _service_ using `docker-compose`.
+
+```yaml
+version: "3"
+services:
+  app:
+    container_name: vue-canteen
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+```
+
+```bash
+$ docker-compose up      # starts interactive session
+$ docker-compose start
+$ docker-compose stop
+```
+
+---
+
+# Node.js on Heroku
+
+<https://devcenter.heroku.com/articles/getting-started-with-nodejs>
+
+---
+
+# Databases on Heroku
+
+<https://devcenter.heroku.com/articles/getting-started-with-nodejs#provision-a-database>
+
+Currently only postgres (for free).
+
+---
+
+# Docker Swarm
+
+<https://docs.docker.com/docker-cloud/cloud-swarm/>
+
+
+
+
