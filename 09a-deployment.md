@@ -151,12 +151,33 @@ Verify that everything works by browsing <http://localhost:3000>.
 
 # Deployment to Heroku
 
-> WORK IN PROGRESS, SORRY.
+If not already done, make your app directory a git repository:
 
-To get started, head to https://www.heroku.com, create an account and download/install the [command line interface](https://devcenter.heroku.com/articles/heroku-cli)
+```
+$ git init
+```
 
-Open the terminal and log into heroku (`heroku container:login`).
+To get started, head to <https://www.heroku.com>, create an account and download/install the [command line interface](https://devcenter.heroku.com/articles/heroku-cli)
+
+Create account on <https://mlab.com> (no worries, it's free).
+After you signed up, create a database (e.g. `wt-2017`) and a user (e.g. `wt2017`, password `hsro`).
+
+In your app directory, open the terminal, log into heroku, create an app and set the mLab credentials as an environment variable.
+
+```
+$ heroku login
+Enter username...
+$ heroku create
+https://enigmatic-lake-72393.herokuapp.com/ | https://git.heroku.com/enigmatic-lake-72393.git
+$ heroku config:set _MONGODB_URI=mongodb://wt2017:hsro@ds135956.mlab.com:35956/wt-2017
+```
+
+> You must adjust the above command to match your mLab credentials!
 
 
+Now you're ready to publish your node app to heroku:
 
+```
+$ git push heroku master
+```
 
