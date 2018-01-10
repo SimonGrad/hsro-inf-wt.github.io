@@ -81,10 +81,10 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 
 	Each team meeting will meet individually with the instructor, tutor will help with projects in tutorials.
 
-- **Advanced topics in web development (Jan 11)**
+- **Advanced topics in web development (Jan 11, [slides](/10s-advanced-topics/))**
 
 	We'll look into advanced topics of web development including *cross-origin resource sharing* (CORS), security and authentification, and persistent connections to webservers (websockets, via [socket.io](https://socket.io/)).
-	tutor will help with projects in tutorials.
+	Tutor will help with projects in tutorials.
 
 - **Project progress meetings (Jan 18, all day)**
 
@@ -93,4 +93,4 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA).
 - **Final project presentations (Jan 25, all day)**
 
 
-_Subscribe to [https://github.com/hsro-inf-wt/hsro-inf-wt.github.io](https://github.com/hsro-inf-wt) repository to follow updates._
+_Subscribe to [https://github.com/hsro-inf-wt/hsro-inf-wt.github.io](https://github.com/hsro-inf-wt/hsro-inf-wt.github.io) repository to follow updates._

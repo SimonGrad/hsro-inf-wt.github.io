@@ -1,0 +1,436 @@
+---
+layout: presentationA
+title: "Advanced Topics in Web Development"
+permalink: /10s-advanced-topics/
+---
+
+layout: true
+
+<footer>
+	<span class="icon github">
+	<svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+	</svg>
+	</span>
+	<a href="https://github.com/sikoried"><span class="username">sikoried</span></a>
+</footer>
+
+---
+
+# Webtechnologien 2017
+
+## Advanced Topics in Web Development
+
+Korbinian Riedhammer
+
+
+---
+
+# Topics
+
+### Web Sockets
+
+### Cross-Origin Resource Sharing (CORS)
+
+### Hashing Passwords with PBKDF2
+
+### HTTP Authentication with JWT
+
+### Responsive Design: Media Queries
+
+### Useful Toolkits
+
+---
+
+# Web Sockets
+
+Persistent connections with message passing.
+
+Instead of constant polling (repeated `GET` requests), use a persistent connection.
+
+Both ends can send and receive message objects with message type (`string`) and payload data.
+
+.skip[
+<https://socket.io/>
+]
+
+---
+
+# Web Sockets
+
+## Server Side
+
+```javascript
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+`io.on`('connection', function(socket){
+  console.log('a user connected');
+  
+  `socket.on`('disconnect', function(){
+    console.log('user disconnected');
+  });
+
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+    `io.emit('chat message', msg);`  // send to all
+  });
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+```
+
+---
+
+# Web Sockets
+
+## Server Side
+
+To send to a specific socket (e.g. for private messaging), use `io.to(socket.id)`
+
+```javascript
+var people = {};
+
+// make sure you register this client with a name
+socket.on('register', function(data) {
+	console.log('registered ' + data.name + " on " + socket.id);
+	people[data.name] = socket.id;
+});
+
+socket.on('chat message', function(data){
+	if (people[data.receiver])
+		`io.to(people[data.reciever])`
+			.emit('chat message', data.msg);
+	else
+		`io.to(socket.id)`  // "return to sender"
+			.emit('error message', {'msg': 'no such user'});
+});
+```
+
+---
+
+# Web Sockets
+
+## Client Side
+
+```html
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+$(function () {
+  `var socket = io();`
+
+  $('form').submit(function(){
+    `socket.emit('chat message', $('#m').val());`  // send message
+    $('#m').val('');
+    return false;
+  });
+  
+  // react to incoming events
+  `socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });`
+});
+</script>
+```
+
+
+---
+
+# Cross-Origin Resource Sharing (CORS)
+
+User agents implement a security policy that restricts subsequent requests to the same origin.
+
+<img style="width: 75%" title="https://mdn.mozillademos.org/files/14295/CORS_principle.png" src="/assets/CORS_principle.png">
+
+
+---
+
+# Cross-Origin Resource Sharing
+
+<https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS>
+
+### Reasons for cross-origin requests
+
+- API/backend on different host
+- Resources (css, js, images etc.) on CDN
+- Cross-site scripting (XSS) attacks (uh oh...)
+
+### Reasons for _preventing_ cross-origin requests
+
+- Restrict your API to be used from your domain (note: this more of a "usage check" than a security thing)
+- Making cross-origin requests a feature explicitly to be configured
+
+---
+
+# Cross-Origin Resource Sharing
+
+### How it works
+
+1. User opens a resource on a webpage (e.g. `index.html`)
+2. User's browser creates connection to the _second_ domain, adding an `Origin` header with the domain of the first server.
+3. The second server responds with an `Access-Control-Allow-Origin` header which lists allowed domains or a wildcard (`*`)
+4. If the first domain is allowed to make the request, the second domain will serve the content.
+
+> This allows the *second* domain to restrict access to its resources.
+> It does not protect from XSS attacks!
+
+
+---
+
+# Cross-Origin Resource Sharing
+
+### In Practice
+
+CORS is a way to grant exceptions to the user agents security policy.
+
+CORS requests are (most of the time) [_preflighted_](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Preflighted_requests): The user agent will send an [OPTIONS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS) request to the resource to examine the response headers.
+
+This is not a security feature: you can set those (request) headers easily when making requests with `curl`.
+
+If you host resources on different domains, you need to configure **the servers other than the primary server** to respond with `Access-Control-Allow-Origin` header.
+
+Most of the time, you probably want to respond with `Access-Control-Allow-Origin: *`.
+
+> Configuring the response headers differs for every server implementation.
+
+---
+
+# Cross-Origin Resource Sharing
+
+### Example
+
+```javascript
+fetch('//localhost:3000')
+	.then(function(resp) {
+		console.log(resp);
+	})
+  .catch(function(err) {
+  	console.log(err);
+  });
+```
+
+```javascript
+app.use(function(req, res, next) {
+  `res.header("Access-Control-Allow-Origin", "*");`
+  next();
+})
+```
+
+---
+
+# Hashing Passwords with PBKDF2
+
+Never **ever** send and/or store passwords in plain text.
+
+Always _hash_ passwords before sending/storing them.
+For authentication, compare _hashed_ passwords.
+
+Popular (and [recommended](https://tools.ietf.org/html/rfc2898#section-5.2)) choice: <span title="Password-Based Key Derivation Function 2">PBKDF2</span>
+
+- apply a pseudo-random function (e.g. hash-based message authentication code (HMAC)) to the input password, along with a salt value
+- repeat the process many times to produce a _derived key_
+
+Use the _derived key_ as your secret string.
+
+The added computational work makes password cracking much more difficult.
+
+---
+
+# Hashing Passwords with PBKDF2
+
+Hashing needs to be done client side!
+
+<https://github.com/walling/unorm>
+<https://github.com/bitwiseshiftleft/sjcl>
+
+```javascript
+var rounds = 1000;
+function encrypt(pw_plaintext, email) {
+	pw_plaintext = unorm.nfc(pw_plaintext)
+	email = unorm.nfc(email.trim()).toLowerCase()
+
+	// Deterministic unique salt: e.g. service name plus email
+	var salt = sjcl.codec.utf8String.toBits("myservice" + email);
+
+	// Run PBKDF2 computation, return result as hexadecimal encoding
+	var key = sjcl.misc.pbkdf2(pw_plaintext, salt, rounds, 32 * 8, function(key) {
+		var hasher = new sjcl.misc.hmac(key, sjcl.hash.sha256);
+		this.encrypt = function () {
+			return hasher.encrypt.apply(hasher, arguments);
+		};
+	});
+
+	return sjcl.codec.hex.fromBits(key);
+}
+```
+
+.right[<https://jsfiddle.net/sikoried/ynvnm17r/>]
+
+---
+
+# HTTP Authentication with JWT
+
+<https://tools.ietf.org/html/rfc7519>
+
+<https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication>
+
+You already know how to authorization from the client side: Set the appropriate header! `Authorization: <type> <credentials>`
+
+Most common types are `Basic` and `Bearer` (see [complete list](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#Authentication_schemes)).
+
+Typical process for `Bearer` authentication:
+- user makes `POST` to `/token` with credentials
+- server verifies credentials and creates access token
+
+---
+
+# HTTP Authentication with JWT
+
+How to map token to _user_ (and their permissions)?
+
+### Variant A: access token table
+
+- server stores token in database, along with metadata
+- for each request, retrieve token from database, with metadata
+- inefficient or cache-error-prone
+
+### Variant B: JSON web token (JWT)
+
+- server creates a web token with metadata and encrypts it
+- client uses web token as `Bearer` token
+- server decrypts token to authenticate and get metadata
+
+---
+
+# HTTP Authentication with JWT
+
+JSON web tokens ([RFC 7519](https://tools.ietf.org/html/rfc7519)) have three parts: header, payload, signature.
+
+Formatted as Base64Url: `xxxxx.yyyyy.zzzz`
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxM
+jM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnR
+ydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+```
+
+With secret `secret`, header and payload are decoded as:
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+```json
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+```
+
+---
+
+# HTTP Authentication with JWT
+
+JWTs are mostly a server-side job
+
+[express middleware](https://github.com/auth0/express-jwt)
+
+[socket.io middleware](https://github.com/adcentury/socketio-jwt-auth)
+
+Authenticated express route:
+
+```javascript
+var jwt = require('express-jwt');
+
+app.get('/protected', jwt({secret: 'my-secret'}), function(req, res) {
+	`// req.user will contain payload!`
+	if (!req.user.admin) 
+		return res.sendStatus(401);
+
+	// alles ok!
+	res.sendStatus(200);
+});
+```
+
+---
+
+# HTTP Authentication with JWT
+
+Authentication and token creation:
+
+```javascript
+app.post('/authenticate', function(req, res) {
+	var user = authenticate(req.body.email, req.body.hash);
+
+	if (!user)
+		return res.sendStatus(403)
+
+	const payload = {
+		admin: user.admin,
+		email: user.email,
+		name: user.name
+    };
+
+	var token = jwt.sign(payload, 'my-secret', {
+		expiresInMinutes: 1440 // expires in 24 hours
+    });
+
+	// return the information including token as JSON
+	res.json({
+		success: true,
+		message: 'Enjoy your token!',
+		token: token
+	});
+});
+```
+
+---
+
+# Responsive Design: Media Queries
+
+Users have very different browser _viewports_:
+- small vs. large resolution, low vs. high dpi
+- small vs. large browser and landscape vs. portrait orientation
+
+Some layouts just don't look right on small or large screens.
+
+Solution: `@media` CSS queries! ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media))
+
+```css
+.article { font-size: 100%; }
+
+@media screen and (min-width: 800px) {
+	.article { font-size: 120%; } /* help, big screen need big font! */
+}
+
+@media print {
+	.article {
+		font-size: 100%;
+		font-color: black;  /* help, don't print crappy colors! */
+	}
+}
+```
+
+---
+
+# Useful Toolkits
+
+These will make your life much easier in 2018:
+
+- Your favorite choice of app toolkits:
+	[vue](https://vuejs.org/), [angular](https://angular.io/), [react](https://reactjs.org/)
+- [Modernizr](https://modernizr.com/): check for browser support
+- [Sass](http://sass-lang.com/): structured css (preprocessor)
+- [d3.js](https://d3js.org/): data-driven documents, eye candy (functional programming)
+- [bootstrap4](https://getbootstrap.com/docs/4.0): much better looks (and responsive tables)
+- [fontawesome4](http://fontawesome.io/): cool icons as font/svg
+- [lodash](https://lodash.com/): convenience for javascript
+- [moment.js](https://momentjs.com/): working with dates
+- [chance.js](http://chancejs.com/): random numbers and identifiers

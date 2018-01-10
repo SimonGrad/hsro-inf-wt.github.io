@@ -3,7 +3,7 @@ email: korbinian.riedhammer@fh-rosenheim.de
 description: "Materialien zum FWPM Webtechnologien"
 baseurl: ""
 url: "https://hsro-inf-wt.github.io"
-exclude: ["LICENSE", "Remarks.md", "express-examples", "vue-examples"]
+exclude: ["LICENSE", "Remarks.md", "express-examples", "vue-examples", "socket-examples"]
 github_username: ["sikoried", "phil294"]
 
 # Build settings
