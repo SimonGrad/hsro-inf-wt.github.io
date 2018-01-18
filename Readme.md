@@ -14,9 +14,9 @@ _Elective for CS [majors](https://www.fh-rosenheim.de/technik/informatik-mathema
 
 **Important Dates:**
 - Nov 9, team registration
-- Dec 7, written exam (60 Min.) *and* team presentations (kick-off)
+- Dec 7, written exam (60 min) *and* team presentations (kick-off)
 - Dec 21, team meetings with instructor (individually, ca. 10 min per team)
-- Jan 25, final presentation of projects
+- Jan 25, final submission of projects (10 min per team, in-person)
 
 _Note: Materials will be in English, the lectures/tutorials will be taught in German; the mid-term written exam will be bilingual (use the language of your choice)._
 
@@ -30,7 +30,7 @@ Lectures: We'll discuss current web technologies to build state-of-the-art web s
 
 Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipedia.org/wiki/Bring_your_own_device) strongly recommended!
 
-Credits: Equal parts written exam (60', mid-term) and team project (PStA).
+Credits: Equal parts written exam (60', mid-term) and team project (PStA, see [grading criteria](/grading-criteria/)).
 
 
 ## Syllabus
