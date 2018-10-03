@@ -78,7 +78,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA, see [g
 
 	Learn about how to deploy your web app with [Heroku](https://www.heroku.com/) or [docker](https://www.docker.com)).
 
-- **Project progress meetings (Dec 21, all day)**
+- **Project progress meetings (Dec 19, all day)**
 
 	Each team meeting will meet individually with the instructor, tutor will help with projects in tutorials.
 
