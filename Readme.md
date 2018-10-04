@@ -15,7 +15,7 @@ _Elective for CS [majors](https://www.fh-rosenheim.de/technik/informatik-mathema
 **Important Dates:**
 - Nov 7, team registration
 - Dec 5, written exam (60 min) *and* team presentations (kick-off)
-- Dec 19, team meetings with instructor (individually, ca. 10 min per team)
+- Dec 21, team meetings with instructor (individually, ca. 10 min per team)
 - Jan 23, final submission of projects (10 min per team, in-person)
 
 _Note: Materials will be in English, the lectures/tutorials will be taught in German; the mid-term written exam will be bilingual (use the language of your choice)._
@@ -78,7 +78,7 @@ Credits: Equal parts written exam (60', mid-term) and team project (PStA, see [g
 
 	Learn about how to deploy your web app with [Heroku](https://www.heroku.com/) or [docker](https://www.docker.com)).
 
-- **Project progress meetings (Dec 19, all day)**
+- **Project progress meetings (Dec 21, all day)**
 
 	Each team meeting will meet individually with the instructor, tutor will help with projects in tutorials.
 
