@@ -204,7 +204,12 @@ var five_squared = (function(x) { return x * x; })(5);
 Predefined function: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions> --- # Function
 Hoisting ```javascript /* Function declaration */ foo(); //> "bar" function foo() { console.log('bar'); } /*
 Function expression */ baz(); // TypeError: baz is not a function var baz=function() { console.log('bar2'); };
-``` --- # Control Structures ```javascript if (cond) { } else if { } else { } for (var i=0; i < 10; i++) { } //
+``` 
+--- 
+
+# Control Structures 
+
+```javascript if (cond) { } else if { } else { } for (var i=0; i < 10; i++) { } //
 use continue and break while (cond) { } ``` Condition: `true` if not _falsy_ (`false`, `undefined`, `null`,
 `0`, `NaN`, `""`) Equality. - `==` tests for value equality - `===` tests for strict equality ```javascript var
 a=5, b='5' ; console.log(a==b) // true console.log(a===b) // false ``` --- # More Control Structures
@@ -212,17 +217,28 @@ a=5, b='5' ; console.log(a==b) // true console.log(a===b) // false ``` --- # Mor
 anything, actually } catch (value) { // ... } finally { // ... } ``` --- # Special `for` constructs
 ```javascript var arr=[3, 5, 7]; arr.foo='hello' ; // remember: arrays are just objects! // go over properties
 for (var i in arr) { console.log(i); // "0" , "1" , "2" , "foo" } // go over iterable properties for (var i of
-arr) { console.log(i); // 3, 5, 7 } ``` --- # Classes ```javascript function Person(name, year) {
+arr) { console.log(i); // 3, 5, 7 } ``` 
+
+--- 
+
+# Classes 
+```javascript function Person(name, year) {
 this.numGrayHair=12; // use `this` like in Java this.age=function () { return 2017 - year; } var self=this;
 setInterval(function growolder() { // The callback refers to the `self` variable of which // the value is the
 expected object. self.numGrayHair++; // this would be the closure! }, 1000); } var peter=new Person("Peter",
 1999); console.log(peter.age()); //> 18 ``` Read more on the `this` keyword: <https://zellwk.com/blog/this/>
---- # The Prototype Pattern The most basic type is `Object`. ```javascript var o=new Object(); ``` Define
+
+--- 
+
+# The Prototype Pattern The most basic type is `Object`. ```javascript var o=new Object(); ``` Define
 custom classes with constructor. ```javascript function Person(name) { this.name=name; // sort-of `public` }
 var p=new Person("Hans"); console.log(p.name); //> Hans ``` Extend a class post-def. ```javascript
 Person.prototype.getName=function() { return this.name; } console.log(p.getName()); ``` Read more on [class
 hierarchies in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model#Class-based_vs._prototype-based_languages).
---- # The JavaScript Event Loop <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/EventLoop>
+
+--- 
+
+# The JavaScript Event Loop <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/EventLoop>
 JavaScript is (typically) interpreted on a single thread, i.e. there is no parallel processing. JavaScript is
 (typically) event driven: timeouts, user interaction, network calls. <img alt="Javascript Event Loop" src="https://blog.carbonfive.com/wp-content/uploads/2013/10/event-loop.png"
 style="width: 80%">
