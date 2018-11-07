@@ -107,143 +107,143 @@ There is a difference between `undefined` and `null`.
     are _hoisted_, meaning the declaration actually happens at the beginning of the function. ```javascript
     console.log(x===undefined); // true, not syntax error var x=3; ```> Global variables should be avoided if possible.
 
-    ---
+---
 
-    # Variables, Functions and Scopes
+# Variables, Functions and Scopes
 
-    Basics just like in Java...
+Basics just like in Java...
 
-    ```javascript
-    var x = 3;
-    var y = 10.0;
-    var str = "Hello, " + 'world!';
+```javascript
+var x = 3;
+var y = 10.0;
+var str = "Hello, " + 'world!';
 
-    function fn(x) { // no return type
-    var y = 4;
-    x = 2 * y;
-    return x;
-    }
+function fn(x) { // no return type
+var y = 4;
+x = 2 * y;
+return x;
+}
 
-    var z = x + y;
-    console.log(z); // > 11
-    ```
+var z = x + y;
+console.log(z); // > 11
+```
 
-    Valid variable names start with `_`, `$` and characters
+Valid variable names start with `_`, `$` and characters
 
-    ---
+---
 
-    # Data Types
+# Data Types
 
-    Six data types that are primitives:
+Six data types that are primitives:
 
-    - Boolean. `true` and `false`.
-    - `null`. A special keyword denoting a null value.
-    Because JavaScript is case-sensitive, `null` is not the same as `Null`, `NULL`, or any other variant.
-    - `undefined`. A top-level property whose value is undefined.
-    - `Number`. `42` or `3.14159`.
-    - `String`. `"Howdy"`
+- Boolean. `true` and `false`.
+- `null`. A special keyword denoting a null value.
+Because JavaScript is case-sensitive, `null` is not the same as `Null`, `NULL`, or any other variant.
+- `undefined`. A top-level property whose value is undefined.
+- `Number`. `42` or `3.14159`.
+- `String`. `"Howdy"`
 
-    `Object`. Anything else.
+`Object`. Anything else.
 
-    JavaScript is dynamically typed, i.e. conversion is automatic.
+JavaScript is dynamically typed, i.e. conversion is automatic.
 
-    ---
+---
 
-    # Objects and Arrays
+# Objects and Arrays
 
-    `Object`s are key-value.
+`Object`s are key-value.
 
-    ```javascript
-    var obj = {prop1: 'value1', 'weird-prop': 3};
+```javascript
+var obj = {prop1: 'value1', 'weird-prop': 3};
 
-    console.log(typeof(obj)); // > object
-    console.log(typeof(obj.prop1)); // > string
-    console.log(typeof(obj['weird-prop'])); // > number
-    ```
+console.log(typeof(obj)); // > object
+console.log(typeof(obj.prop1)); // > string
+console.log(typeof(obj['weird-prop'])); // > number
+```
 
-    Arrays are objects. (With numeric properties)
+Arrays are objects. (With numeric properties)
 
-    ```javascript
-    var arr = [1, 2, undefined, 'Text'];
-    console.log(typeof(arr)); // > object
-    console.log(typeof(arr[1])); // > number
-    console.log(typeof(arr[2])); // > undefined
+```javascript
+var arr = [1, 2, undefined, 'Text'];
+console.log(typeof(arr)); // > object
+console.log(typeof(arr[1])); // > number
+console.log(typeof(arr[2])); // > undefined
 
-    arr.push(0); // arr = [1, 2, undefined, 'Text'', 0]
-    arr.pop(); // > 0
-    ```
+arr.push(0); // arr = [1, 2, undefined, 'Text'', 0]
+arr.pop(); // > 0
+```
 
 
-    ---
+---
 
-    # Functions
+# Functions
 
-    Functions are first class citizens.
+Functions are first class citizens.
 
-    ```javascript
-    var counter = function (from) {
-    return function() { // anonymous
-    from = from + 1;
-    return from - 1;
-    }
-    }
+```javascript
+var counter = function (from) {
+return function() { // anonymous
+from = from + 1;
+return from - 1;
+}
+}
 
-    var inc1 = counter(0), inc2 = counter(10);
+var inc1 = counter(0), inc2 = counter(10);
 
-    inc1(); inc1(); console.log(inc1());
-    inc2(); inc2(); console.log(inc2());
-    var v = counter(10)(); // > 10
-    ```
+inc1(); inc1(); console.log(inc1());
+inc2(); inc2(); console.log(inc2());
+var v = counter(10)(); // > 10
+```
 
-    Functions can be anonymous.
+Functions can be anonymous.
 
-    ```javascript
-    var five_squared = (function(x) { return x * x; })(5);
-    ```
+```javascript
+var five_squared = (function(x) { return x * x; })(5);
+```
 
-    Predefined function: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions> --- # Function
-        Hoisting ```javascript /* Function declaration */ foo(); //> "bar" function foo() { console.log('bar'); } /*
-        Function expression */ baz(); // TypeError: baz is not a function var baz=function() { console.log('bar2'); };
-        ``` --- # Control Structures ```javascript if (cond) { } else if { } else { } for (var i=0; i < 10; i++) { } //
-        use continue and break while (cond) { } ``` Condition: `true` if not _falsy_ (`false`, `undefined`, `null`,
-        `0`, `NaN`, `""`) Equality. - `==` tests for value equality - `===` tests for strict equality ```javascript var
-        a=5, b='5' ; console.log(a==b) // true console.log(a===b) // false ``` --- # More Control Structures
-        ```javascript switch (value) { case 1: ...; break; default: ... } ``` ```javascript try { throw expr; //
-        anything, actually } catch (value) { // ... } finally { // ... } ``` --- # Special `for` constructs
-        ```javascript var arr=[3, 5, 7]; arr.foo='hello' ; // remember: arrays are just objects! // go over properties
-        for (var i in arr) { console.log(i); // "0" , "1" , "2" , "foo" } // go over iterable properties for (var i of
-        arr) { console.log(i); // 3, 5, 7 } ``` --- # Classes ```javascript function Person(name, year) {
-        this.numGrayHair=12; // use `this` like in Java this.age=function () { return 2017 - year; } var self=this;
-        setInterval(function growolder() { // The callback refers to the `self` variable of which // the value is the
-        expected object. self.numGrayHair++; // this would be the closure! }, 1000); } var peter=new Person("Peter",
-        1999); console.log(peter.age()); //> 18 ``` Read more on the `this` keyword: <https://zellwk.com/blog/this/>
-        --- # The Prototype Pattern The most basic type is `Object`. ```javascript var o=new Object(); ``` Define
-        custom classes with constructor. ```javascript function Person(name) { this.name=name; // sort-of `public` }
-        var p=new Person("Hans"); console.log(p.name); //> Hans ``` Extend a class post-def. ```javascript
-        Person.prototype.getName=function() { return this.name; } console.log(p.getName()); ``` Read more on [class
-        hierarchies in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model#Class-based_vs._prototype-based_languages).
-        --- # The JavaScript Event Loop <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/EventLoop>
-        JavaScript is (typically) interpreted on a single thread, i.e. there is no parallel processing. JavaScript is
-        (typically) event driven: timeouts, user interaction, network calls. <img alt="Javascript Event Loop" src="https://blog.carbonfive.com/wp-content/uploads/2013/10/event-loop.png"
-        style="width: 80%">
+Predefined function: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions> --- # Function
+Hoisting ```javascript /* Function declaration */ foo(); //> "bar" function foo() { console.log('bar'); } /*
+Function expression */ baz(); // TypeError: baz is not a function var baz=function() { console.log('bar2'); };
+``` --- # Control Structures ```javascript if (cond) { } else if { } else { } for (var i=0; i < 10; i++) { } //
+use continue and break while (cond) { } ``` Condition: `true` if not _falsy_ (`false`, `undefined`, `null`,
+`0`, `NaN`, `""`) Equality. - `==` tests for value equality - `===` tests for strict equality ```javascript var
+a=5, b='5' ; console.log(a==b) // true console.log(a===b) // false ``` --- # More Control Structures
+```javascript switch (value) { case 1: ...; break; default: ... } ``` ```javascript try { throw expr; //
+anything, actually } catch (value) { // ... } finally { // ... } ``` --- # Special `for` constructs
+```javascript var arr=[3, 5, 7]; arr.foo='hello' ; // remember: arrays are just objects! // go over properties
+for (var i in arr) { console.log(i); // "0" , "1" , "2" , "foo" } // go over iterable properties for (var i of
+arr) { console.log(i); // 3, 5, 7 } ``` --- # Classes ```javascript function Person(name, year) {
+this.numGrayHair=12; // use `this` like in Java this.age=function () { return 2017 - year; } var self=this;
+setInterval(function growolder() { // The callback refers to the `self` variable of which // the value is the
+expected object. self.numGrayHair++; // this would be the closure! }, 1000); } var peter=new Person("Peter",
+1999); console.log(peter.age()); //> 18 ``` Read more on the `this` keyword: <https://zellwk.com/blog/this/>
+--- # The Prototype Pattern The most basic type is `Object`. ```javascript var o=new Object(); ``` Define
+custom classes with constructor. ```javascript function Person(name) { this.name=name; // sort-of `public` }
+var p=new Person("Hans"); console.log(p.name); //> Hans ``` Extend a class post-def. ```javascript
+Person.prototype.getName=function() { return this.name; } console.log(p.getName()); ``` Read more on [class
+hierarchies in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model#Class-based_vs._prototype-based_languages).
+--- # The JavaScript Event Loop <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/EventLoop>
+JavaScript is (typically) interpreted on a single thread, i.e. there is no parallel processing. JavaScript is
+(typically) event driven: timeouts, user interaction, network calls. <img alt="Javascript Event Loop" src="https://blog.carbonfive.com/wp-content/uploads/2013/10/event-loop.png"
+style="width: 80%">
 
-        ---
+---
 
-        # JavaScript: Wat?
+# JavaScript: Wat?
 
-        https://www.destroyallsoftware.com/talks/wat
+https://www.destroyallsoftware.com/talks/wat
 
-        ---
+---
 
-        # Outlook: ES6
+# Outlook: ES6
 
-        - Promises
-        - Classes
-        - Lambda
+- Promises
+- Classes
+- Lambda
 
-        ???
+???
 
-        Part 2:
-        - DOM and native JS
-        - jquery
-        - ajax and promise (es6)
+Part 2:
+- DOM and native JS
+- jquery
+- ajax and promise (es6)
