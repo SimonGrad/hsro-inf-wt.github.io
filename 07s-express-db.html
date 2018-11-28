@@ -210,12 +210,14 @@ app.listen(3000, () => console.log("Server ready on port 3000"))
 const express = require('express')
 const app = express()
 
-app.get('/', (req, res, next) => {
-	res.status(200).send("Hello World!").end()
+app.get('/', (req, res) => {
+	// status 200 and content-type text/html are set automatically
+	res.send("Hello World!");
 })
 
-app.post('/', (req, res, nxst) => {
-	res.status(201).json({'key': 'value'}).end()
+app.post('/', (req, res) => {
+	// content-type application/json is set automatically
+	res.status(201).json({'key': 'value'});
 })
 
 app.put('/', express.json(), (req, res, next) => {
